@@ -1,0 +1,273 @@
+<html>
+    <link rel="stylesheet" href="stylesheet.css"> 
+    
+
+    <body>
+    <head>
+        <meta charset="UTF-8">
+        <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+        <title>YGORec</title>
+    </head>
+
+    <h1>
+        YGORec
+    </h1>
+
+    <h2>
+        [Top Cut Deck Analysis]
+    </h2>
+
+    <div class="menuArea">
+        <div class="dropdowns">
+            <a class="labels">Archetype:</a>
+            
+            <select id="archetype">
+
+            </select>
+
+            <a class="labels">Format:</a>
+
+            <select id="format">
+                <option value="TCG">TCG</option>
+                <option value="OCG">OCG</option>
+            </select>
+        </div>
+
+        <div class="dropdowns2">
+            
+            <a class="labels">Deck:</a>
+
+            <select id="deck">
+                <option value="main">Main</option>
+                <option value="extra">Extra</option>
+                <option value="side">Side</option>
+            </select>
+
+            <a class="labels">Time Frame:</a>
+
+            <select id="timeFrame">
+                <option value="31">1 Month</option>
+                <option value="93">3 Month</option>
+                <option value="186">6 Month</option>
+                <option value="365">1 Year</option>
+                <option value="100000">All Time</option>
+            </select>
+        </div>
+        
+        <div class="dropdowns3">
+            <a class="labels2">Subtype:</a>
+
+            <select id="subtype">
+                <option value="">No</option>
+                <option value=" (sub)">Yes</option>
+            </select>
+        </div>
+
+        <div class="dropdowns2">
+            <button id="fetchTable" onclick="runCode()" class="button">
+                Search
+            </button>
+        </div>
+
+        <div id="table-container" class="datatable">
+
+        </div>
+    
+        <script src="script.js"></script>
+
+        <h3>
+            (Last updated: 10-18-24)
+        </h3>
+    </div>
+
+    <button onclick="showDiv()" id="FAQButton">FAQ</button>
+        <div id="FAQ">        
+        <h4>
+            Data will be updated weekly (probably on Fridays)
+            <br>
+            Inquries: ProjectShuckle@gmail.com
+            <br>
+            Data source: <a href="https://ygoprodeck.com/" class="hyperlink">YGOProDeck.com</a>
+        </h4>
+        <h5>
+            <b style="color: white;">Parameters</b>: <br>
+            <b>Archetype</b>: the main archetype you are searching for. <br>
+            <b>Deck</b>: the deck part you want to see results for. <br>
+            <b>Subtype</b>: <br>
+            <a class="bullet">• </a><b>No</b>: most represented archetype / main archetype / main engine. <br>
+            <a class="bullet">• </a><b>Yes</b>: not the most represented arcehtype / secondary archetype / side engine.<br>
+            <b>Format</b>: the format you want to results for. <br>
+            <b>Time Frame</b>: time range of data pulled.
+        </h5>
+    </div>
+    </body>
+</html>
+
+<script>
+    async function showDiv() {
+        var faq = document.getElementById('FAQ');
+        if (faq.style.display == "none") {
+            faq.style.display = "flex";
+        }
+        else {
+            faq.style.display = "none";
+        }
+    }
+
+    async function fetchCSV(url) {
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+        }
+        const text = await response.text();
+        return text;
+    } catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+    }
+}
+
+function parseCSV(text) {
+    const rows = text.trim().split('\n');
+    return rows.map(row => row.split('|'));
+}
+
+function createTable(data) {
+    const table = document.createElement('table');
+    
+    data.forEach((row, index) => {
+        const tr = document.createElement('tr');
+        var counter = 0;
+        row.forEach(cell => {
+            const td = document.createElement(index === 0 ? 'th' : 'td');
+            if (cell.includes("https:")) {
+                cell = '<img src="' + cell + '" class="cardImage">';
+                td.innerHTML = cell;
+                tr.appendChild(td);
+            }
+            else if (counter == 1) {
+                cell = "<a href='https://yugipedia.com/wiki/"+ cell.replace(/ /g,"_").replace("'","%27") +"'class='hyperlink'>"+cell +"</a>";
+                td.innerHTML = cell;
+                tr.appendChild(td);
+            }
+            else {
+                td.innerHTML = '<div class="statCell">' + cell + '</div>';
+                tr.appendChild(td);
+            }
+            counter = counter + 1;
+            if (counter == 4) {
+                coutner = 0;
+            }
+        });
+        
+        table.appendChild(tr);
+    });
+
+    return table;
+}
+
+async function fetchCSV2(url) {
+    const response = await fetch(url);
+    if (!response.ok) {
+        throw new Error('Network response was not ok');
+    }
+    const text = await response.text();
+    return text;
+}
+
+function parseCSV2(text) {
+    // Split the text by new lines and return the array
+    return text.split('\n').filter(line => line.trim() !== '');
+}
+
+function populateDropdown(data) {
+    const dropdown = document.getElementById('archetype');
+
+    data.forEach(item => {
+        const option = document.createElement('option');
+        if (item.includes("(sub)")){
+            return;
+        }
+        option.value = item;
+        option.textContent = item;
+        dropdown.appendChild(option);
+    });
+}
+
+async function initializeDropdown() {
+    const csvUrl = 'https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics/refs/heads/main/archetype.csv';
+    try {
+        const csvText = await fetchCSV2(csvUrl);
+        const parsedData = parseCSV2(csvText);
+        populateDropdown(parsedData);
+    } catch (error) {
+        console.error('Error fetching or parsing CSV:', error);
+    }
+}
+
+initializeDropdown();
+
+async function displayCSV(url) {
+    const csvText = await fetchCSV(url);
+    if (csvText) {
+        const parsedData = parseCSV(csvText);
+        const table = createTable(parsedData);
+        document.getElementById('table-container').appendChild(table);
+    }
+}
+
+function removeTable(){
+    //removes the current table to make space for the newly generated one.
+    document.getElementById("table-container").innerHTML=""
+}
+
+//Adds listeners to all of the dropdown menus to update the table when search button is pressed.
+var archetypeText = "ABC";
+var formatText = "TCG";
+var deckText = "main";
+var timeFrameText = "31";
+var subtypeText = "";
+
+var csvUrl = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics/refs/heads/main/tables/" + archetypeText +"/" + formatText + "_"+ timeFrameText + "%20days_" + deckText + "_deck.csv";
+
+
+var archetype = document.getElementById("archetype");
+var format = document.getElementById("format");
+var deck = document.getElementById("deck");
+var timeFrame = document.getElementById("timeFrame");
+var subtype = document.getElementById("subtype");
+
+archetype.addEventListener("change", function(){
+    archetypeText = archetype.value;
+    csvUrl = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics/refs/heads/main/tables/" + archetypeText +"/" + formatText + "_"+ timeFrameText + "%20days_" + deckText + "_deck.csv";
+});
+
+format.addEventListener("change", function(){
+    formatText = format.value;
+    csvUrl = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics/refs/heads/main/tables/" + archetypeText +"/" + formatText + "_"+ timeFrameText + "%20days_" + deckText + "_deck.csv";
+});
+
+deck.addEventListener("change", function(){
+    deckText = deck.value;
+    csvUrl = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics/refs/heads/main/tables/" + archetypeText +"/" + formatText + "_"+ timeFrameText + "%20days_" + deckText + "_deck.csv";
+});
+
+timeFrame.addEventListener("change", function(){
+    timeFrameText = timeFrame.value;
+    csvUrl = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics/refs/heads/main/tables/" + archetypeText +"/" + formatText + "_"+ timeFrameText + "%20days_" + deckText + "_deck.csv";
+});
+
+subtype.addEventListener("change", function(){
+    subtypeText = subtype.value;
+    csvUrl = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics/refs/heads/main/tables/" + archetypeText + subtypeText +"/" + formatText + "_"+ timeFrameText + "%20days_" + deckText + "_deck.csv";
+});
+
+
+async function runCode() {
+    //Updates the table.
+    removeTable();
+    displayCSV(csvUrl);
+}
+
+</script>
+

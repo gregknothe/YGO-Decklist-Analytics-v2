@@ -1,0 +1,54 @@
+html {
+    background-color: rgb(32, 32, 32);
+    color: white;
+}
+
+/*---------------------Containers-----------------------*/
+#inputContainer {
+    background-color: #00800048;
+    width: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#deckContainer {
+    background-color: rgba(255, 0, 0, 0.247);
+    width: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#cardContainer {
+    background-color: rgba(0, 0, 255, 0.205);
+    width: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/*---------------------inputs-----------------------*/
+.inputSelect {
+    background-color: rgb(76, 77, 77);
+    color: white;
+}
+
+/*---------------------decks-----------------------*/
+.deckTabs {
+    background-color: rgb(76, 77, 77);
+    color: white;
+    border: 1px solid white;
+}
+
+.deckTabsActive {
+    background-color: rgb(32, 32, 32);
+    border: 1px solid white;
+    border-bottom: 0px;
+    color: white;
+}
+
+/*---------------------cards-----------------------*/
+
+
+

@@ -1,0 +1,192 @@
+<html>
+<link rel="stylesheet" href="style.css"> 
+<body>
+    <div id="testArea">
+        Archetype:
+        <a id="currArchetype">none</a>
+        <br>Format:
+        <a id="currFormat">none</a>
+        <br>TimeFrame:
+        <a id="currTime">none</a>
+        <br>Deck:
+        <a id="currDeck">none</a>
+
+    </div>
+    <div id="inputContainer">
+        <select id="archetypeSelect" class="inputSelect">
+
+        </select>
+        <select id="formatSelect" class="inputSelect">
+            <option>TCG</option>
+            <option>OCG</option>
+        </select>
+        <select id="timeSelect" class="inputSelect">
+            <option value="1month">1M</option>
+            <option value="3month">3M</option>
+            <option alue="6month">6M</option>
+            <option value="12year">1Y</option>
+            <option value="420month">All Time</option>
+
+        </select>
+        <button class="searchButton">Search</button>
+    </div>
+
+    <div id="deckContainer"> 
+        <button class="deckTabs" id="mainTab">Main</button>
+        <button class="deckTabs" id="extraTab">Extra</button>
+        <button class="deckTabs" id="sideTab">Side</button>
+        <button class="deckTabs" id="infoTab">More Info</button>
+    </div>
+
+    <div id="cardContainer">
+        cards
+    </div>
+
+</body>
+</html>
+
+<script>
+    /*------------------Deck Selection Script------------------*/
+    const mainTab = document.getElementById("mainTab");
+    const extraTab = document.getElementById("extraTab");
+    const sideTab = document.getElementById("sideTab");
+    const infoTab = document.getElementById("infoTab");
+
+    var currDeck = document.getElementById("currDeck");
+
+    mainTab.addEventListener("click", function() {
+        if (mainTab.classList.contains("deckTabs")) {
+            mainTab.classList.remove("deckTabs");
+            
+            extraTab.classList.remove("deckTabsActive");
+            extraTab.classList.add("deckTabs");
+            sideTab.classList.remove("deckTabsActive");
+            sideTab.classList.add("deckTabs");
+            infoTab.classList.remove("deckTabsActive");
+            infoTab.classList.add("deckTabs");
+
+            mainTab.classList.add("deckTabsActive");
+
+            currDeck.innerHTML = "main";
+        }
+    });
+
+    extraTab.addEventListener("click", function() {
+        if (extraTab.classList.contains("deckTabs")) {
+            extraTab.classList.remove("deckTabs");
+            
+            sideTab.classList.remove("deckTabsActive");
+            sideTab.classList.add("deckTabs");
+            mainTab.classList.remove("deckTabsActive");
+            mainTab.classList.add("deckTabs");
+            infoTab.classList.remove("deckTabsActive");
+            infoTab.classList.add("deckTabs");
+
+            extraTab.classList.add("deckTabsActive");
+
+            currDeck.innerHTML = "extra";
+        }
+    })
+
+    sideTab.addEventListener("click", function() {
+        if (sideTab.classList.contains("deckTabs")) {
+            sideTab.classList.remove("deckTabs");
+            
+            extraTab.classList.remove("deckTabsActive");
+            extraTab.classList.add("deckTabs");
+            mainTab.classList.remove("deckTabsActive");
+            mainTab.classList.add("deckTabs");
+            infoTab.classList.remove("deckTabsActive");
+            infoTab.classList.add("deckTabs");
+
+            sideTab.classList.add("deckTabsActive");
+
+            currDeck.innerHTML = "side";
+        }
+    })
+
+    infoTab.addEventListener("click", function() {
+        if (infoTab.classList.contains("deckTabs")) {
+            infoTab.classList.remove("deckTabs");
+            
+            extraTab.classList.remove("deckTabsActive");
+            extraTab.classList.add("deckTabs");
+            mainTab.classList.remove("deckTabsActive");
+            mainTab.classList.add("deckTabs");
+            sideTab.classList.remove("deckTabsActive");
+            sideTab.classList.add("deckTabs");
+
+            infoTab.classList.add("deckTabsActive");
+
+            currDeck.innerHTML = "info";
+        }
+    })
+
+
+</script>
+
+<script>
+    /*--------------------Input Script--------------------------*/
+    var archetypeSelect = document.getElementById("archetypeSelect");
+    var formatSelect = document.getElementById("formatSelect");
+    var timeSelect = document.getElementById("timeSelect");
+
+    var currArchetype = document.getElementById("currArchetype");
+    var currFormat = document.getElementById("currFormat");
+    var currTime = document.getElementById("currTime");
+
+    archetypeSelect.addEventListener("change", function() {
+        currArchetype.innerHTML = archetypeSelect.value;
+    });
+
+    formatSelect.addEventListener("change", function() {
+        currFormat.innerHTML = formatSelect.value;
+    });
+
+    timeSelect.addEventListener("change", function() {
+        currTime.innerHTML = timeSelect.value;
+    });
+
+    /*--------------------Archetype Dropdown List--------------*/
+    async function fetchArchetypes(url) {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const text = await response.text();
+        return text;
+    }
+
+    function parseArchetypes(text) {
+        return text.split('\n').filter(line => line.trim() !== '');
+    }
+
+    function populateArchetypes(data) {
+        const dropdown = document.getElementById('archetypeSelect');
+
+        data.forEach(item => {
+            const option = document.createElement('option');
+            if (item.includes("(sub)")){
+                return;
+            }
+            option.value = item;
+            option.textContent = item;
+            dropdown.appendChild(option);
+        });
+    }
+
+    async function initializeArchetypes() {
+        const csvUrl = 'https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics/refs/heads/main/archetype.csv';
+        try {
+            const csvText = await fetchArchetypes(csvUrl);
+            const parsedData = parseArchetypes(csvText);
+            populateArchetypes(parsedData);
+        } catch (error) {
+            console.error('Error fetching or parsing CSV:', error);
+        }
+    }
+
+    initializeArchetypes();
+
+</script>
+
