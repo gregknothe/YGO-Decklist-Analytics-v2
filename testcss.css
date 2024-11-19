@@ -1,0 +1,34 @@
+/* Basic styling for images */
+.cardImg {
+    width: 150px;
+    height: auto;
+    margin: 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+/* Overlay to gray out background */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+/* Styling for the enlarged image */
+.enlargedImage {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+}
+
+/* Add this to ensure the enlarged image stays on top */
+.overlay.active {
+    display: flex;
+}

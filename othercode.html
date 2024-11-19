@@ -1,0 +1,276 @@
+<html>
+    <link rel="stylesheet" href="styles.css">
+    <body>
+        <h1>
+            Card Gallery
+        </h1>
+        <div id="searchContainer">
+            <a id="searchLabel">Twitch Username: </a>
+            <select id="userList">
+                <option>Twitch Username</option>
+            </select>
+            <button id="button" onclick="runCode()">Search</button>
+        </div>
+
+        <h2>Favorites</h2>
+        <hr>
+        <div id="favTable"></div>
+        <hr style="margin-top: 0">
+        
+        <h2>Collection</h2>
+        <hr>
+        <div id="table"></div>
+        <hr style="margin-top: 0">
+
+    </body>
+</html>
+
+<script>
+
+    async function fetchCSV(url) {
+        try {
+            const response = await fetch(url);
+            if (!response.ok) throw new Error('Network response was not ok');
+            
+            const text = await response.text();
+            return parseCSV(text);
+        } catch (error) {
+            console.error('Error fetching the CSV:', error);
+        }
+    }
+
+    function parseCSV(data) {
+        const rows = data.split('\n');
+        return rows.map(row => row.split('|'));
+    }
+
+    function displayCSV(data) {
+        const table = document.getElementById('table');
+        const favTable = document.getElementById("favTable");
+        
+        data.forEach((row, index) => {
+            const cardCell = document.createElement("div");
+            cardCell.className = "cell";
+            const cardInfo = document.createElement("div");
+            cardInfo.className = "cardInfo";
+            cardInfo.textContent = "Card Info";
+            const game_rarity = document.createElement("div");
+            game_rarity.className = "game_rarity";
+            const set_owner = document.createElement("div");
+            set_owner.className = "set_owner";
+            const name = document.createElement("div");
+            const cardID = document.createElement("div");
+            const rarity = document.createElement("div");
+            const cardImg = document.createElement("img");
+            const cardLink = document.createElement("a");
+            const game = document.createElement("div");
+            const set = document.createElement("div");
+            const owner = document.createElement("div");
+            var fav = 0;
+            var col = 0;
+            row.forEach(cell => {
+                if (col == 0) {
+                    name.textContent = cell;
+                    name.className = "infoText";
+                }
+                else if (col == 1) {
+                    cardID.textContent = cell;
+                    cardID.className = "infoText";
+                }
+                else if (col == 2) {
+                    rarity.textContent = cell;
+                    rarity.className = "infoText";
+                }
+                else if (col == 3) {
+                    cardImg.className = "cardImg";
+                    cardImg.src = cell;
+                }
+                else if (col == 4) {
+                    col = col;
+                }
+                else if (col == 5) {
+                    game.textContent = cell;
+                    game.className = "infoText";
+                }
+                else if (col == 6) {
+                    set.textContent = cell;
+                    set.className = 'infoText'
+                }                
+                else if (col == 7) {
+                    col = col;
+                }
+                else if (col == 8) {
+                    owner.textContent = cell;
+                    owner.className = "infoText";
+                }
+                else if (col == 9) {
+                    fav = cell;
+                }
+                col = col + 1;
+            });         
+            
+            cardCell.appendChild(cardImg);
+            cardCell.appendChild(cardInfo);
+
+            const nameLabel = document.createElement("div");
+            nameLabel.textContent = "name:";
+            nameLabel.className = "infoTextLabel";
+            name.href = cardImg.src;
+            cardInfo.appendChild(nameLabel);
+            cardInfo.appendChild(name);
+
+            const cardIDLabel = document.createElement("div");
+            cardIDLabel.textContent = "card id:";
+            cardIDLabel.className = "infoTextLabel";
+            cardInfo.appendChild(cardIDLabel);
+            cardInfo.appendChild(cardID);
+
+            const rarityLabel = document.createElement("div");
+            rarityLabel.textContent = "rarity:";
+            rarityLabel.className = "infoTextLabel";
+            cardInfo.appendChild(rarityLabel);
+            cardInfo.appendChild(rarity);
+
+            const gameLabel = document.createElement("div");
+            gameLabel.textContent = "game:";
+            gameLabel.className = "infoTextLabel";
+            cardInfo.appendChild(gameLabel);
+            cardInfo.appendChild(game);
+
+            const setLabel = document.createElement("div");
+            setLabel.textContent = "set:";
+            setLabel.className = "infoTextLabel";
+            cardInfo.appendChild(setLabel);
+            cardInfo.appendChild(set);
+            
+            const ownerLabel = document.createElement("div");
+            ownerLabel.textContent = "owner:";
+            ownerLabel.className = "infoTextLabel";
+            cardInfo.appendChild(ownerLabel);
+            cardInfo.appendChild(owner);
+
+            if (fav == 0) {
+                table.appendChild(cardCell);
+            }
+            else {
+                favTable.appendChild(cardCell);
+            }
+        });
+    }
+
+    var csvUrl = 'https://raw.githubusercontent.com/gregknothe/OBS-Stuff-v2/refs/heads/main/testCSV.csv'; 
+
+    fetchCSV(csvUrl).then(data => {
+        if (data) {
+            console.log(data);
+            displayCSV(data);
+        }
+    });
+
+    table.addEventListener('click', function(event) {
+    if (event.target.classList.contains('cardInfo')) {
+            console.log('Card clicked:', event.target.textContent);
+            if (event.target.style.height == "100%") {
+                event.target.style.height = "8%";
+            }
+            else {
+                event.target.style.height = "100%";
+            }
+        }
+    });
+
+    favTable.addEventListener('click', function(event) {
+    if (event.target.classList.contains('cardInfo')) {
+            console.log('Card clicked:', event.target.textContent);
+            if (event.target.style.height == "100%") {
+                event.target.style.height = "8%";
+            }
+            else {
+                event.target.style.height = "100%";
+            }
+        }
+    });
+
+
+    /*------------------------------------------------------------------------------*/
+    async function fetchCSV2(url) {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const text = await response.text();
+        return text;
+    }
+
+    function parseCSV2(text) {
+        return text.split('\n').filter(line => line.trim() !== '');
+    }
+
+    function populateDropdown(data) {
+        const dropdown = document.getElementById('userList');
+
+        data.forEach(item => {
+            const option = document.createElement('option');
+            if (item.includes("(sub)")){
+                return;
+            }
+            option.value = item;
+            option.textContent = item;
+            dropdown.appendChild(option);
+        });
+    }
+
+    async function initializeDropdown() {
+        const userListURL = 'https://raw.githubusercontent.com/gregknothe/OBS-Stuff-v2/refs/heads/main/userDataFrames/userList.csv';
+        try {
+            const csvText = await fetchCSV2(userListURL);
+            const parsedData = parseCSV2(csvText);
+            populateDropdown(parsedData);
+        } catch (error) {
+            console.error('Error fetching or parsing CSV:', error);
+        }
+    }
+
+    initializeDropdown();
+
+    var user = "";
+    var userList = document.getElementById("userList");
+
+    userList.addEventListener("change", function(){
+        user = userList.value;
+        csvUrl = "https://raw.githubusercontent.com/gregknothe/OBS-Stuff-v2/refs/heads/main/userDataFrames/"+user+".csv";
+        console.log(csvUrl);
+    });
+    
+    async function removeTable() {
+        document.getElementById("table").innerHTML = "";
+        document.getElementById("favTable").innerHTML = "";
+    }
+
+    function runCode() {
+        removeTable();
+        console.log(csvUrl);
+        /*
+        currData = fetchCSV(csvUrl);
+        console.log(currData);
+        displayCSV(currData); 
+        */
+        fetchCSV(csvUrl).then(data => {
+        if (data) {
+            console.log(data);
+            displayCSV(data);
+        }
+        });
+    }
+
+</script>
+
+<!--
+
+Data:
+change rarity to new format
+
+Chat bot:
+add favorite command
+
+-->
