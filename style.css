@@ -1,6 +1,14 @@
 html {
-    background-color: rgb(32, 32, 32);
+    background-color: rgb(19, 19, 19);
     color: white;
+    overflow-y:scroll;
+    scrollbar-color: rgb(36, 36, 36) rgb(7, 7, 7);
+}
+
+h1 {
+    font-family: 'Courier New', Courier, monospace;
+    color: rgb(255, 255, 255);
+    text-shadow: 1px 1px 1px rgb(202, 0, 34);
 }
 
 body {
@@ -9,26 +17,37 @@ body {
     align-items: center;
 }
 
+button {
+    background-color: rgb(76, 77, 77);
+    border: solid 1px rgb(141, 140, 140);
+    color: white;
+    margin-top: -9px;
+    width: 310px;
+}
+
 /*---------------------Containers-----------------------*/
 #inputContainer {
-    background-color: #00800048;
-    width: 800;
+    /*background-color: rgb(32, 32, 32);*/
+    width: 306px;
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-bottom: 10px;
+    padding: 3px;
 }
 
 #deckContainer {
-    background-color: rgba(255, 0, 0, 0.247);
+    /*background-color: rgba(255, 0, 0, 0.247);*/
     width: 800;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: left;
 }
 
 #cardContainer {
-    background-color: rgba(71, 71, 71, 0.205);
-    width: 800;
+    background-color: rgb(32, 32, 32);
+    width: 800px;
+    padding-top: 5px;
     /*display: flex;
     align-items: center;
     justify-content: center;
@@ -39,20 +58,43 @@ body {
 .inputSelect {
     background-color: rgb(76, 77, 77);
     color: white;
+    width: 80px;
+}
+
+#archetypeSelect {
+    width: 130px;
+}
+
+#archetypeContainer, #formatContainer {
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px;
+}
+
+#timeContainer {
+    display: flex;
+    flex-direction: column;
 }
 
 /*---------------------decks-----------------------*/
 .deckTabs {
     background-color: rgb(76, 77, 77);
     color: white;
-    border: 1px solid white;
+    border: 1px rgb(76, 77, 77);
+    margin-right: 4px;
+    width: 80px;
+    height: 20px;
+    
 }
 
 .deckTabsActive {
     background-color: rgb(32, 32, 32);
-    border: 1px solid white;
+    border: 1px solid rgb(32, 32, 32);
     border-bottom: 0px;
     color: white;
+    margin-right: 4px;
+    width: 80px;
+    height: 20px;
 }
 
 /*---------------------cards-----------------------*/
@@ -65,13 +107,17 @@ body {
 }
 
 #extraContainer {
-    background-color: purple;
+    width: 800px;
     display: none;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 #sideContainer {
-    background-color: aquamarine;
+    width: 800px;
     display: none;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 #infoContainer {
@@ -84,7 +130,14 @@ body {
     width: 100px;
     display: flex;
     flex-direction: column;
-    margin: 3px;
+    justify-content: center;
+
+    font-size: 13;
+    margin-right: 6px;
+    margin-left: 6px;
+    margin-bottom: 4px;
+    margin-top: 4px;
+    box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.664);
 }
 
 .cardImg {
@@ -96,12 +149,22 @@ body {
 
 .cardInfo {
     display: flex;
+    padding: 3px;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .percent, .count {
-     width: 500px;
     display: flex;
     justify-content: center;
+    align-items: center;
+}
+
+.percent {
+    width: 60px;
+}
+
+.count {
+    width: 40px;
 }
 
 /*-------------------------------------------------*/

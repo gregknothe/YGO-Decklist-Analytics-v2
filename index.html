@@ -3,40 +3,47 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <body>
-    <div id="testArea">
-        Archetype:
-        <a id="currArchetype">none</a>
-        <br>Format:
-        <a id="currFormat">none</a>
-        <br>TimeFrame:
-        <a id="currTime">none</a>
-        <br>Deck:
-        <a id="currDeck">none</a>
+    <h1>
+        YGORec
+    </h1>
 
-    </div>
     <div id="inputContainer">
-        <select id="archetypeSelect" class="inputSelect">
+        <div id="archetypeContainer">
+            <div>Archetype</div>
+            <select id="archetypeSelect" class="inputSelect">
+            </select>
+        </div>
 
-        </select>
-        <select id="formatSelect" class="inputSelect">
-            <option>TCG</option>
-            <option>OCG</option>
-        </select>
-        <select id="timeSelect" class="inputSelect">
-            <option value="1month">1M</option>
-            <option value="3month">3M</option>
-            <option alue="6month">6M</option>
-            <option value="12year">1Y</option>
-            <option value="420month">All Time</option>
+        <div id="formatContainer">
+            <div>Format</div>
+            <select id="formatSelect" class="inputSelect">
+                <option>TCG</option>
+                <option>OCG</option>
+            </select>
+        </div>
 
-        </select>
-        <button class="searchButton" onclick="runCode()">Search</button>
+        <div id="timeContainer">
+            <div>Time</div>
+            <select id="timeSelect" class="inputSelect">
+                <option value="31">1 Month</option>
+                <option value="93">3 Months</option>
+                <option alue="186">6 Months</option>
+                <option value="365">1 Year</option>
+                <option value="100000">All Time</option>
+            </select>
+        </div>
+
     </div>
+
+    <button class="searchButton" onclick="runCode()">Search</button>
+
+    <br>
+    <br>
 
     <div id="deckContainer"> 
-        <button class="deckTabs" id="mainTab">Main</button>
-        <button class="deckTabs" id="extraTab">Extra</button>
-        <button class="deckTabs" id="sideTab">Side</button>
+        <button class="deckTabsActive" id="mainTab">Main Deck</button>
+        <button class="deckTabs" id="extraTab">Extra Deck</button>
+        <button class="deckTabs" id="sideTab">Side Deck</button>
         <button class="deckTabs" id="infoTab">More Info</button>
     </div>
 
@@ -46,11 +53,11 @@
         </div>
 
         <div id="extraContainer" class="cardPanel">
-            Extra
+            
         </div>
 
         <div id="sideContainer" class="cardPanel">
-            Side
+            
         </div>
 
         <div id="infoContainer" class="cardPanel">
@@ -92,8 +99,6 @@
 
             mainTab.classList.add("deckTabsActive");
 
-            currDeck.innerHTML = "main";
-
             extraContainer.style.display = "none";
             sideContainer.style.display = "none";
             infoContainer.style.display = "none";
@@ -115,8 +120,6 @@
 
             extraTab.classList.add("deckTabsActive");
 
-            currDeck.innerHTML = "extra";
-
             mainContainer.style.display = "none";
             sideContainer.style.display = "none";
             infoContainer.style.display = "none";
@@ -136,8 +139,6 @@
             infoTab.classList.add("deckTabs");
 
             sideTab.classList.add("deckTabsActive");
-
-            currDeck.innerHTML = "side";
 
             extraContainer.style.display = "none";
             mainContainer.style.display = "none";
@@ -159,8 +160,6 @@
 
             infoTab.classList.add("deckTabsActive");
 
-            currDeck.innerHTML = "info";
-
             extraContainer.style.display = "none";
             sideContainer.style.display = "none";
             mainContainer.style.display = "none";
@@ -181,17 +180,6 @@
     var currFormat = document.getElementById("currFormat");
     var currTime = document.getElementById("currTime");
 
-    archetypeSelect.addEventListener("change", function() {
-        currArchetype.innerHTML = archetypeSelect.value;
-    });
-
-    formatSelect.addEventListener("change", function() {
-        currFormat.innerHTML = formatSelect.value;
-    });
-
-    timeSelect.addEventListener("change", function() {
-        currTime.innerHTML = timeSelect.value;
-    });
 
     /*--------------------Archetype Dropdown List--------------*/
     async function fetchArchetypes(url) {
@@ -239,7 +227,9 @@
 <script>
     /*-------------------Card Table Code-----------------------------------*/
 
-    url = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics/refs/heads/main/tables/Branded/TCG_100000%20days_main_deck.csv";
+    mainURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics/refs/heads/main/tables/Purrely/TCG_31%20days_main_deck.csv";
+    extraURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics/refs/heads/main/tables/Purrely/TCG_31%20days_extra_deck.csv";
+    sideURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics/refs/heads/main/tables/Purrely/TCG_31%20days_side_deck.csv";
 
     async function fetchCSV(url) {
         try {
@@ -258,9 +248,10 @@
         return rows.map(row => row.split('|'));
     }
 
-    function displayCSV(data) {
-
+    function displayCSV(data, container) {
+        var rowCount = 0;
         data.forEach((row, index) => {
+            /*console.log(data.length);*/
             const cardCell = document.createElement("div");
             cardCell.className = "cell";
             
@@ -280,7 +271,7 @@
                     cardImg.src = cell;
                 }
                 else if (col == 1) {
-                    console.log(col)
+                    console.log();
                 }
                 else if (col == 2) {
                     percent.textContent = cell;
@@ -293,28 +284,46 @@
                 col = col + 1;
             });         
             
-            cardInfo.appendChild(percent);
-            cardInfo.appendChild(count);
+            if (rowCount > 0 && index != data.length - 1) {
+                cardInfo.appendChild(percent);
+                cardInfo.appendChild(count);
 
-            cardCell.appendChild(cardImg);
-            cardCell.appendChild(cardInfo);
+                cardCell.appendChild(cardImg);
+                cardCell.appendChild(cardInfo);
 
+                container.appendChild(cardCell);
+            }
 
-            mainContainer.appendChild(cardCell);
+            rowCount = rowCount + 1;
         });
     };
 
     async function removeCells() {
         document.getElementById("mainContainer").innerHTML = "";
+        document.getElementById("extraContainer").innerHTML = "";
+        document.getElementById("sideContainer").innerHTML = "";
     }
 
     function runCode() {
         removeCells();
-        console.log(url);
-        fetchCSV(url).then(data => {
+        fetchCSV(mainURL).then(data => {
         if (data) {
             console.log(data);
-            displayCSV(data);
+            displayCSV(data, mainContainer);
+        }
+        });
+
+        fetchCSV(extraURL).then(data => {
+        if (data) {
+            console.log(data);
+            displayCSV(data, extraContainer);
+        }
+        });
+
+        fetchCSV(sideURL).then(data => {
+        if (data) {
+            console.log(data);
+            displayCSV(data, sideContainer);
         }
         });
     }
@@ -322,39 +331,71 @@
 </script>
 
 <script>
-// Function to open the enlarged image
-function enlargeImage(src) {
-    const overlay = document.getElementById('overlay');
-    const enlargedImage = document.getElementById('enlargedImage');
-    enlargedImage.src = src;
-    overlay.classList.add('active');
-}
-
-// Function to close the enlarged image
-function closeImage() {
-    const overlay = document.getElementById('overlay');
-    overlay.classList.remove('active');
-}
-
-// Adding click event listeners to images with class 'cardImg'
-document.getElementById("mainContainer").addEventListener('click', function(event) {
-    if (event.target && event.target.matches('.cardImg')) {
-        console.log("clicked");
-        enlargeImage(event.target.src);
+    // Function to open the enlarged image
+    function enlargeImage(src) {
+        const overlay = document.getElementById('overlay');
+        const enlargedImage = document.getElementById('enlargedImage');
+        enlargedImage.src = src;
+        overlay.classList.add('active');
     }
-});
 
-document.getElementById("extraContainer").addEventListener('click', function(event) {
-    if (event.target && event.target.matches('.cardImg')) {
-        console.log("clicked");
-        enlargeImage(event.target.src);
+    // Function to close the enlarged image
+    function closeImage() {
+        const overlay = document.getElementById('overlay');
+        overlay.classList.remove('active');
     }
-});
 
-document.getElementById("sideContainer").addEventListener('click', function(event) {
-    if (event.target && event.target.matches('.cardImg')) {
-        console.log("clicked");
-        enlargeImage(event.target.src);
-    }
-});
+    // Adding click event listeners to images with class 'cardImg'
+    document.getElementById("mainContainer").addEventListener('click', function(event) {
+        if (event.target && event.target.matches('.cardImg')) {
+            console.log("clicked");
+            enlargeImage(event.target.src);
+        }
+    });
+
+    document.getElementById("extraContainer").addEventListener('click', function(event) {
+        if (event.target && event.target.matches('.cardImg')) {
+            console.log("clicked");
+            enlargeImage(event.target.src);
+        }
+    });
+
+    document.getElementById("sideContainer").addEventListener('click', function(event) {
+        if (event.target && event.target.matches('.cardImg')) {
+            console.log("clicked");
+            enlargeImage(event.target.src);
+        }
+    });
 </script>
+
+<script>
+    var archetypeValue = archetypeSelect.value;
+    var formatValue = formatSelect.value;
+    var timeValue = timeSelect.value;
+
+    archetypeSelect.addEventListener("change", function(){
+        archetypeValue = archetypeSelect.value;
+        mainURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics/refs/heads/main/tables/" + archetypeValue +"/" + formatValue + "_"+ timeValue + "%20days_main_deck.csv";
+        extraURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics/refs/heads/main/tables/" + archetypeValue +"/" + formatValue + "_"+ timeValue + "%20days_extra_deck.csv";
+        sideURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics/refs/heads/main/tables/" + archetypeValue +"/" + formatValue + "_"+ timeValue + "%20days_side_deck.csv";
+    });
+
+    formatSelect.addEventListener("change", function(){
+        formatValue = formatSelect.value;
+        mainURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics/refs/heads/main/tables/" + archetypeValue +"/" + formatValue + "_"+ timeValue + "%20days_main_deck.csv";
+        extraURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics/refs/heads/main/tables/" + archetypeValue +"/" + formatValue + "_"+ timeValue + "%20days_extra_deck.csv";
+        sideURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics/refs/heads/main/tables/" + archetypeValue +"/" + formatValue + "_"+ timeValue + "%20days_side_deck.csv";
+    });
+
+    timeSelect.addEventListener("change", function(){
+        timeValue = timeSelect.value;
+        mainURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics/refs/heads/main/tables/" + archetypeValue +"/" + formatValue + "_"+ timeValue + "%20days_main_deck.csv";
+        extraURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics/refs/heads/main/tables/" + archetypeValue +"/" + formatValue + "_"+ timeValue + "%20days_extra_deck.csv";
+        sideURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics/refs/heads/main/tables/" + archetypeValue +"/" + formatValue + "_"+ timeValue + "%20days_side_deck.csv";
+    });
+
+</script>
+<!--
+Sort equal values so monsters -> spells -> trap
+Create data for more info tab
+-->
