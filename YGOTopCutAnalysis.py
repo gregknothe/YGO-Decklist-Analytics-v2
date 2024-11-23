@@ -264,16 +264,22 @@ def createArchetypeTables():
                 "TCG_31 days_side_deck", "TCG_93 days_side_deck", "TCG_186 days_side_deck", "TCG_365 days_side_deck", "TCG_100000 days_side_deck",]
     for archetype in archetypes: 
         print(archetype)
-        for dateRange in dateRanges:
-            df = pd.read_csv("dataframes/" + archetype + "/" + dateRange + ".csv", sep="|")
-            archetypeTable = deckAnalysis(df)
-            os.makedirs("tables/"+archetype, exist_ok=True)
-            archetypeTable['count'] = pd.Series([f"{count:.2f}" for count in archetypeTable['count']], index = archetypeTable.index)
-            archetypeTable["% of decks"] = pd.Series(["{0:.2f}%".format(perc * 100) for perc in archetypeTable["% of decks"]], index = archetypeTable.index)
-            if archetypeTable.empty:
-                emptyRow = ["https://images.ygoprodeck.com/images/cards/71625222.jpg", "No available data for " + archetype + " in selected time frame.", 0, 0]
-                archetypeTable = pd.concat([archetypeTable,pd.DataFrame(columns=archetypeTable.columns, data=[emptyRow])])
-            archetypeTable.to_csv("tables/" + archetype + "/" + dateRange + ".csv", sep="|", index=False)
+        if "(sub)" in archetype:
+            for dateRange in dateRanges:
+                df = pd.read_csv("dataframes/" + archetype + "/" + dateRange + ".csv", sep="|")
+                #Get count of all tags that arnt "archetype"
+        else:
+            for dateRange in dateRanges:
+                df = pd.read_csv("dataframes/" + archetype + "/" + dateRange + ".csv", sep="|")
+                archetypeTable = deckAnalysis(df)
+                os.makedirs("tables/"+archetype, exist_ok=True)
+                archetypeTable['count'] = pd.Series([f"{count:.2f}" for count in archetypeTable['count']], index = archetypeTable.index)
+                archetypeTable["% of decks"] = pd.Series(["{0:.2f}%".format(perc * 100) for perc in archetypeTable["% of decks"]], index = archetypeTable.index)
+                if archetypeTable.empty:
+                    emptyRow = ["https://github.com/gregknothe/YGO-Decklist-Analytics-v2/NoAvailableData.jpeg", "No Data", "N/A", "N/A"]
+                    archetypeTable = pd.concat([archetypeTable,pd.DataFrame(columns=archetypeTable.columns, data=[emptyRow])])
+                archetypeTable.to_csv("tables/" + archetype + "/" + dateRange + ".csv", sep="|", index=False)
+                #Get deck size counts, prob just count of unique deck ids
     return
 
 def updateBlankNames():
