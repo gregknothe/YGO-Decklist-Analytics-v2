@@ -221,6 +221,46 @@ def codeCorrector(df):
                 df.at[index, "imgSource"] = imgSource
     return df
 
+def cardTypeAssigner(cardType):
+    if "Monster" in cardType:
+        return "Monster"
+    elif "Spell" in cardType:
+        return "Spell"
+    elif "Trap" in cardType:
+        return "Trap"
+    else:
+        return "Z"
+
+def deckAnalysis(df):
+    df = df.fillna("")
+    cardIDList = list(set(df["code"].to_list()))
+    #cardNameList = list(set(df["name"].to_list()))
+    '''
+    if len(cardIDList) != len(cardNameList):
+        df = codeCorrector(df)
+        cardIDList = list(set(df["code"].to_list()))
+        #print(x[x["name"]=="Ash Blossom & Joyous Spring"])
+    '''
+    df = codeCorrector(df)
+    cardIDList = list(set(df["code"].to_list()))
+    totalDeckCount = len(list(set(df["deckID"].to_list())))
+    cardDeckCount, cardAvgCount, cardName, cardImgSource, cardType = [], [], [], [], []
+    for cardID in cardIDList:
+        cardDF = df[df["code"]==cardID].reset_index(drop=True)
+        cardDeckList = list(set(cardDF["deckID"].to_list()))
+        cardAvgCount.append(round(np.mean(list(Counter(cardDF["deckID"]).values())),3))
+        cardDeckCount.append(len(cardDeckList))
+        cardImgSource.append(cardDF["imgSource"].iloc[0].replace("cards_small", "cards"))
+        cardName.append(df.loc[df["code"]==cardID, "name"].iloc[0])
+        cardType.append(cardTypeAssigner(df.loc[df["code"]==cardID, "type"].iloc[0]))
+    df = pd.DataFrame({"code": cardIDList, "deckCount": cardDeckCount, "image": cardImgSource, "count": cardAvgCount, "cardType": cardType})
+    df["% of decks"] = round(df["deckCount"] / totalDeckCount, 3)
+    df["name"] = cardName
+    df = df[["image", "name", "% of decks", "count", "cardType"]].sort_values(["% of decks", "cardType", "count", "name"], ascending=[False, True, False, True]).reset_index(drop=True)
+    df = df.drop("cardType", axis=1)
+    return df
+
+"""
 def deckAnalysis(df):
     df = df.fillna("")
     cardIDList = list(set(df["code"].to_list()))
@@ -247,6 +287,7 @@ def deckAnalysis(df):
     df["name"] = cardName
     df = df[["image", "name", "% of decks", "count"]].sort_values(["% of decks", "count", "name"], ascending=False).reset_index(drop=True)
     return df
+"""
 
 #deckAnalysis(pd.read_csv("dataframes/SnakeEye/TCG_93 days_main_deck.csv", sep="|"))
 
