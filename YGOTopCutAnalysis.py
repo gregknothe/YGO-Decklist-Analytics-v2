@@ -294,6 +294,7 @@ def deckAnalysis(df):
 def createArchetypeTables():
     archetypes = os.listdir("E:\Various Programs\Coding Projects\YGO Decklist Analytics\dataframes")
     archetypes = [x for x in archetypes if x != 'nan']
+    archetypes = [x for x in archetypes if "(sub)" not in x]
     with open('archetype.csv', 'w') as f:
         for archetype in archetypes:
             f.write(f"{archetype}\n")
@@ -305,10 +306,62 @@ def createArchetypeTables():
                 "TCG_31 days_side_deck", "TCG_93 days_side_deck", "TCG_186 days_side_deck", "TCG_365 days_side_deck", "TCG_100000 days_side_deck",]
     for archetype in archetypes: 
         print(archetype)
+        #Main Deck Stuff - Get deck sizes
+        for dateRange in dateRanges:
+            df = pd.read_csv("dataframes/" + archetype + "/" + dateRange + ".csv", sep="|")
+            archetypeTable = deckAnalysis(df)
+            os.makedirs("tables/"+archetype, exist_ok=True)
+            archetypeTable['count'] = pd.Series([f"{count:.2f}" for count in archetypeTable['count']], index = archetypeTable.index)
+            archetypeTable["% of decks"] = pd.Series(["{0:.2f}%".format(perc * 100) for perc in archetypeTable["% of decks"]], index = archetypeTable.index)
+            if archetypeTable.empty:
+                emptyRow = ["https://github.com/gregknothe/YGO-Decklist-Analytics-v2/NoAvailableData.jpeg", "No Data", "N/A", "N/A"]
+                archetypeTable = pd.concat([archetypeTable,pd.DataFrame(columns=archetypeTable.columns, data=[emptyRow])])
+            archetypeTable.to_csv("tables/" + archetype + "/" + dateRange + ".csv", sep="|", index=False)
+        
+            if "main" in dateRange:
+                os.makedirs("tables/" + archetype + "_data", exist_ok=True)
+
+                #Sub Archetypes
+                dfmain = df.drop_duplicates(subset='deckID', keep='first').reset_index(drop=True)
+                count2 = dfmain["tag2"].value_counts()
+                count3 = dfmain["tag3"].value_counts()
+                count2 = count2.add(count3, fill_value=0)
+                count2 = count2.sort_values(ascending=False)
+                count2 = count2.reset_index()
+                count2.to_csv("tables/" + archetype + "_data/sub_archetypes_" + dateRange + ".csv", sep="|", index=False, header=False)
+
+                #Main Archetypes
+                dfsub = pd.read_csv("dataframes/" + archetype + " (sub)/" + dateRange + ".csv", sep="|")
+                dfsub = dfsub.drop_duplicates(subset='deckID', keep='first').reset_index(drop=True)
+                count1 = dfsub["tag1"].value_counts()
+                count1 = count1.sort_values(ascending=False)
+                count1 = count1.reset_index()
+                #count1["count"] = count1["count"].apply(lambda x: int(x))
+                count1.to_csv("tables/" + archetype + "_data/main_archetypes_" + dateRange + ".csv", sep="|", index=False, header=False)
+
+                #Main Size Count
+                idCount = df["deckID"].value_counts()
+                if idCount.empty:
+                    size = [["n/a"], ["n/a"], ["n/a"], ["n/a"]]
+                else:
+                    avgSize = sum(idCount.values)/len(df["deckID"].unique())
+                    maxSize = max(idCount.values)
+                    minSize = min(idCount.values)
+                    size = [[len(idCount)], [avgSize], [maxSize], [minSize]]
+                sizeDF = pd.DataFrame(size)
+                sizeDF.to_csv("tables/" + archetype + "_data/deck_size_" + dateRange + ".csv", sep="|", index=False, header=False)
+
+
+        """
         if "(sub)" in archetype:
             for dateRange in dateRanges:
                 df = pd.read_csv("dataframes/" + archetype + "/" + dateRange + ".csv", sep="|")
+                count1 = df["tag1"].value_counts()
+                count1 = count1.sort_values(ascending=False)
+                count1 = count1.reset_index()
+                count1["count"] = count1["count"].apply(lambda x: int(x))
                 #Get count of all tags that arnt "archetype"
+                count1.to_csv("tables/" + archetype + "/" + dateRange + ".csv", sep="|", index=False)
         else:
             for dateRange in dateRanges:
                 df = pd.read_csv("dataframes/" + archetype + "/" + dateRange + ".csv", sep="|")
@@ -320,7 +373,10 @@ def createArchetypeTables():
                     emptyRow = ["https://github.com/gregknothe/YGO-Decklist-Analytics-v2/NoAvailableData.jpeg", "No Data", "N/A", "N/A"]
                     archetypeTable = pd.concat([archetypeTable,pd.DataFrame(columns=archetypeTable.columns, data=[emptyRow])])
                 archetypeTable.to_csv("tables/" + archetype + "/" + dateRange + ".csv", sep="|", index=False)
-                #Get deck size counts, prob just count of unique deck ids
+                #Split this up into this chunk and the otehr one taht will get all of the "more info" tab, 
+                #maybe just go tyhrough archetypes instead of spliting based on "sub". 
+                #Consider making small functions to increase readability cuz it will get confusing.
+        """
     return
 
 def updateBlankNames():
@@ -353,7 +409,7 @@ def updateBlankNames():
 #updateBlankNames()
 
 #deckPartitioner()
-createArchetypeTables()
+#createArchetypeTables()
 
 
 #x = pd.read_csv("E:\Various Programs\Coding Projects\YGO Decklist Analytics\dataframes\SnakeEye\TCG_93 days_extra_deck.csv", sep="|")

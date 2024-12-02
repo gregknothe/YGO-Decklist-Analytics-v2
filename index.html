@@ -210,7 +210,7 @@
     }
 
     async function initializeArchetypes() {
-        const csvUrl = 'https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics/refs/heads/main/archetype.csv';
+        const csvUrl = 'https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/archetype.csv';
         try {
             const csvText = await fetchArchetypes(csvUrl);
             const parsedData = parseArchetypes(csvText);
@@ -227,9 +227,9 @@
 <script>
     /*-------------------Card Table Code-----------------------------------*/
 
-    mainURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics/refs/heads/main/tables/Purrely/TCG_31%20days_main_deck.csv";
-    extraURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics/refs/heads/main/tables/Purrely/TCG_31%20days_extra_deck.csv";
-    sideURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics/refs/heads/main/tables/Purrely/TCG_31%20days_side_deck.csv";
+    mainURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/tables/Purrely/TCG_31%20days_main_deck.csv";
+    extraURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/tables/Purrely/TCG_31%20days_extra_deck.csv";
+    sideURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/tables/Purrely/TCG_31%20days_side_deck.csv";
 
     async function fetchCSV(url) {
         try {
@@ -375,23 +375,23 @@
 
     archetypeSelect.addEventListener("change", function(){
         archetypeValue = archetypeSelect.value;
-        mainURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics/refs/heads/main/tables/" + archetypeValue +"/" + formatValue + "_"+ timeValue + "%20days_main_deck.csv";
-        extraURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics/refs/heads/main/tables/" + archetypeValue +"/" + formatValue + "_"+ timeValue + "%20days_extra_deck.csv";
-        sideURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics/refs/heads/main/tables/" + archetypeValue +"/" + formatValue + "_"+ timeValue + "%20days_side_deck.csv";
+        mainURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/tables/" + archetypeValue +"/" + formatValue + "_"+ timeValue + "%20days_main_deck.csv";
+        extraURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/tables/" + archetypeValue +"/" + formatValue + "_"+ timeValue + "%20days_extra_deck.csv";
+        sideURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/tables/" + archetypeValue +"/" + formatValue + "_"+ timeValue + "%20days_side_deck.csv";
     });
 
     formatSelect.addEventListener("change", function(){
         formatValue = formatSelect.value;
-        mainURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics/refs/heads/main/tables/" + archetypeValue +"/" + formatValue + "_"+ timeValue + "%20days_main_deck.csv";
-        extraURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics/refs/heads/main/tables/" + archetypeValue +"/" + formatValue + "_"+ timeValue + "%20days_extra_deck.csv";
-        sideURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics/refs/heads/main/tables/" + archetypeValue +"/" + formatValue + "_"+ timeValue + "%20days_side_deck.csv";
+        mainURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/tables/" + archetypeValue +"/" + formatValue + "_"+ timeValue + "%20days_main_deck.csv";
+        extraURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/tables/" + archetypeValue +"/" + formatValue + "_"+ timeValue + "%20days_extra_deck.csv";
+        sideURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/tables/" + archetypeValue +"/" + formatValue + "_"+ timeValue + "%20days_side_deck.csv";
     });
 
     timeSelect.addEventListener("change", function(){
         timeValue = timeSelect.value;
-        mainURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics/refs/heads/main/tables/" + archetypeValue +"/" + formatValue + "_"+ timeValue + "%20days_main_deck.csv";
-        extraURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics/refs/heads/main/tables/" + archetypeValue +"/" + formatValue + "_"+ timeValue + "%20days_extra_deck.csv";
-        sideURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics/refs/heads/main/tables/" + archetypeValue +"/" + formatValue + "_"+ timeValue + "%20days_side_deck.csv";
+        mainURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/tables/" + archetypeValue +"/" + formatValue + "_"+ timeValue + "%20days_main_deck.csv";
+        extraURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/tables/" + archetypeValue +"/" + formatValue + "_"+ timeValue + "%20days_extra_deck.csv";
+        sideURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/tables/" + archetypeValue +"/" + formatValue + "_"+ timeValue + "%20days_side_deck.csv";
     });
 
 </script>
