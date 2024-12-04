@@ -9,13 +9,13 @@
 
     <div id="inputContainer">
         <div id="archetypeContainer">
-            <div>Archetype</div>
+            <div class="searchLabel">Archetype</div>
             <select id="archetypeSelect" class="inputSelect">
             </select>
         </div>
 
         <div id="formatContainer">
-            <div>Format</div>
+            <div class="searchLabel">Format</div>
             <select id="formatSelect" class="inputSelect">
                 <option>TCG</option>
                 <option>OCG</option>
@@ -23,7 +23,7 @@
         </div>
 
         <div id="timeContainer">
-            <div>Time</div>
+            <div class="searchLabel">Time</div>
             <select id="timeSelect" class="inputSelect">
                 <option value="31">1 Month</option>
                 <option value="93">3 Months</option>
@@ -61,7 +61,42 @@
         </div>
 
         <div id="infoContainer" class="cardPanel">
-            Info
+            <div id="leftInfo">
+                <div id="deckInfo">
+                    # of decks: <br>
+                    avg deck size: <br>
+                    min deck size: <br>
+                    max deck size: 
+                </div>
+                <div id="deckValues">
+                    <a id="deckCount">n/a</a><br>
+                    <a id="avgDeckSize">n/a</a><br>
+                    <a id="minDeckSize">n/a</a><br>
+                    <a id="maxDeckSize">n/a</a><br>
+                </div>
+            </div>
+
+            <div id="rightInfo">
+                <div class="infoBoxLabel">
+                    common sub engines:
+                </div>
+                <div class="infoBox" id="mainBox">
+                    <div class="archBox">
+                        <div class="archName">
+                            Kashtira
+                        </div>
+                        <div class="archCount">
+                            42
+                        </div>
+                    </div>
+                </div>
+                <div class="infoBoxLabel">
+                    common sub engine for:
+                </div>
+                <div class="infoBox" id="subBox">
+
+                </div>
+            </div>
         </div>
     </div>
 
@@ -83,6 +118,8 @@
     var extraContainer = document.getElementById("extraContainer");
     var sideContainer = document.getElementById("sideContainer");
     var infoContainer = document.getElementById("infoContainer");
+    var mainBox = document.getElementById("mainBox");
+    var subBox = document.getElementById("subBox");
 
     var currDeck = document.getElementById("currDeck");
 
@@ -227,9 +264,13 @@
 <script>
     /*-------------------Card Table Code-----------------------------------*/
 
-    mainURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/tables/Purrely/TCG_31%20days_main_deck.csv";
-    extraURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/tables/Purrely/TCG_31%20days_extra_deck.csv";
-    sideURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/tables/Purrely/TCG_31%20days_side_deck.csv";
+    mainURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/tables/ABC/TCG_31%20days_main_deck.csv";
+    extraURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/tables/ABC/TCG_31%20days_extra_deck.csv";
+    sideURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/tables/ABC/TCG_31%20days_side_deck.csv";
+    dataURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/tables/ABC_data/deck_size_TCG_31%20days_main_deck.csv";
+    mainArchURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/tables/ABC_data/main_archetypes_TCG_31%20days_main_deck.csv";
+    subArchURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/tables/ABC_data/sub_archetypes_TCG_31%20days_main_deck.csv";
+
 
     async function fetchCSV(url) {
         try {
@@ -298,10 +339,89 @@
         });
     };
 
+/* ---------------------------------------------------------------TEST AREA------------------------------------------------------------*/
+    function displayDeckInfo(data) {
+        var deckCount = document.getElementById("deckCount");
+        var avgDeckSize = document.getElementById("avgDeckSize");
+        var minDeckSize = document.getElementById("minDeckSize");
+        var maxDeckSize = document.getElementById("maxDeckSize");
+        var rowCount = 0;
+        data.forEach((row, index) => {
+            row.forEach(cell => {
+                if (rowCount == 0) {
+                    deckCount.text = Math.round(cell);
+                }
+                else if (rowCount == 1) {
+                    avgDeckSize.text = Math.round(cell);
+                }
+                else if (rowCount == 2) {
+                    minDeckSize.text = Math.round(cell);
+                }
+                else if (rowCount == 3) {
+                    maxDeckSize.text = Math.round(cell);
+                }
+                else {
+                    
+                }
+            });         
+            rowCount = rowCount + 1;
+        });
+    };
+    /* figure out hwo the row loop works again, the rest should be simple */
+
+
+    function displayArchTabs(data, container) {
+        var rowCount = 0;
+        data.forEach((row, index) => {
+            /*console.log(data.length);*/
+            const archBox = document.createElement("div");
+            archBox.className = "archBox";
+            
+            const archName = document.createElement("div");
+            archName.className = "archName";
+
+            const archCount = document.createElement("div");
+            archCount.className = "archCount";
+
+            var col = 0;
+            row.forEach(cell => {
+                if (col == 0) {
+                    archName.textContent = cell;
+                }
+                else if (col == 1) {
+                    archCount.textContent = Math.round(cell);
+                }
+                col = col + 1;
+            });         
+            /*
+            if (index != data.length - 1) {
+                cardInfo.appendChild(percent);
+                cardInfo.appendChild(count);
+
+                cardCell.appendChild(cardImg);
+                cardCell.appendChild(cardInfo);
+
+                container.appendChild(cardCell);
+
+            }*/
+            if (index != data.length - 1) {
+                archBox.appendChild(archName);
+                archBox.appendChild(archCount);
+
+                container.appendChild(archBox);
+            }
+            rowCount = rowCount + 1;
+        });
+    };
+
+/* ---------------------------------------------------------------------------------------------------------------*/
+
     async function removeCells() {
         document.getElementById("mainContainer").innerHTML = "";
         document.getElementById("extraContainer").innerHTML = "";
         document.getElementById("sideContainer").innerHTML = "";
+        document.getElementById("mainBox").innerHTML = "";
+        document.getElementById("subBox").innerHTML = "";
     }
 
     function runCode() {
@@ -324,6 +444,27 @@
         if (data) {
             console.log(data);
             displayCSV(data, sideContainer);
+        }
+        });
+
+        fetchCSV(dataURL).then(data => {
+        if (data) {
+            console.log(data);
+            displayDeckInfo(data);
+        }
+        });
+
+        fetchCSV(mainArchURL).then(data => {
+        if (data) {
+            console.log(data);
+            displayArchTabs(data, subBox);
+        }
+        });
+
+        fetchCSV(subArchURL).then(data => {
+        if (data) {
+            console.log(data);
+            displayArchTabs(data, mainBox);
         }
         });
     }
@@ -378,6 +519,10 @@
         mainURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/tables/" + archetypeValue +"/" + formatValue + "_"+ timeValue + "%20days_main_deck.csv";
         extraURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/tables/" + archetypeValue +"/" + formatValue + "_"+ timeValue + "%20days_extra_deck.csv";
         sideURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/tables/" + archetypeValue +"/" + formatValue + "_"+ timeValue + "%20days_side_deck.csv";
+        dataURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/tables/" + archetypeValue +"_data/deck_size_" + formatValue + "_"+ timeValue + "%20days_main_deck.csv";
+        mainArchURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/tables/" + archetypeValue +"_data/main_archetypes_" + formatValue + "_"+ timeValue + "%20days_main_deck.csv";
+        subArchURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/tables/" + archetypeValue +"_data/sub_archetypes_" + formatValue + "_"+ timeValue + "%20days_main_deck.csv";
+        
     });
 
     formatSelect.addEventListener("change", function(){
@@ -385,6 +530,9 @@
         mainURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/tables/" + archetypeValue +"/" + formatValue + "_"+ timeValue + "%20days_main_deck.csv";
         extraURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/tables/" + archetypeValue +"/" + formatValue + "_"+ timeValue + "%20days_extra_deck.csv";
         sideURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/tables/" + archetypeValue +"/" + formatValue + "_"+ timeValue + "%20days_side_deck.csv";
+        dataURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/tables/" + archetypeValue +"_data/deck_size_" + formatValue + "_"+ timeValue + "%20days_main_deck.csv";
+        mainArchURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/tables/" + archetypeValue +"_data/main_archetypes_" + formatValue + "_"+ timeValue + "%20days_main_deck.csv";
+        subArchURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/tables/" + archetypeValue +"_data/sub_archetypes_" + formatValue + "_"+ timeValue + "%20days_main_deck.csv";
     });
 
     timeSelect.addEventListener("change", function(){
@@ -392,10 +540,13 @@
         mainURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/tables/" + archetypeValue +"/" + formatValue + "_"+ timeValue + "%20days_main_deck.csv";
         extraURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/tables/" + archetypeValue +"/" + formatValue + "_"+ timeValue + "%20days_extra_deck.csv";
         sideURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/tables/" + archetypeValue +"/" + formatValue + "_"+ timeValue + "%20days_side_deck.csv";
+        dataURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/tables/" + archetypeValue +"_data/deck_size_" + formatValue + "_"+ timeValue + "%20days_main_deck.csv";
+        mainArchURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/tables/" + archetypeValue +"_data/main_archetypes_" + formatValue + "_"+ timeValue + "%20days_main_deck.csv";
+        subArchURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/tables/" + archetypeValue +"_data/sub_archetypes_" + formatValue + "_"+ timeValue + "%20days_main_deck.csv";
     });
 
 </script>
-<!--
-Sort equal values so monsters -> spells -> trap
-Create data for more info tab
--->
+
+<script>
+
+</script>

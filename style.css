@@ -15,6 +15,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 button {
@@ -76,6 +77,10 @@ button {
     flex-direction: column;
 }
 
+.searchLabel {
+    font-size: 15;
+}
+
 /*---------------------decks-----------------------*/
 .deckTabs {
     background-color: rgb(76, 77, 77);
@@ -121,7 +126,7 @@ button {
 }
 
 #infoContainer {
-    background-color: fuchsia;
+    background-color: rgb(32, 32, 32);
     display: none;
 }
 
@@ -193,4 +198,79 @@ button {
 /* Add this to ensure the enlarged image stays on top */
 .overlay.active {
     display: flex;
+}
+
+/*more info section */
+#leftInfo {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    /*background-color: green;*/
+    width: 30%;
+    display: flex;
+    align-items: center;
+    font-size: 14;
+}
+
+#rightInfo {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    /*background-color: blue;*/
+    width: 70%;
+    font-size: 14;
+}
+
+#deckInfo {
+    width: 70%;
+    text-align: right;
+    margin-right: 10%;
+}
+
+#deckValues {
+    width: 30%;
+    text-align: center;
+    margin-right: 20%;
+}
+
+.infoBox {
+    background-color: rgb(17, 17, 17);
+    width: 90%;
+    height: 80px;
+    display: flex;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14;
+    flex-wrap: wrap;
+    overflow: scroll;
+    overflow-x: hidden;
+    align-content: flex-start;
+}
+
+.archBox {
+    display: flex;
+    background-color: green;
+    height: 20px;
+    margin: 6px;
+    margin-bottom: 0px;
+}
+
+.archName {
+    background-color: rgb(34, 34, 34);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 6px;
+    padding-right: 6px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14;
+}
+
+.archCount {
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 6px;
+    padding-right: 6px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14;
+    
 }

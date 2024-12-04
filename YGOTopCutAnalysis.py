@@ -314,7 +314,7 @@ def createArchetypeTables():
             archetypeTable['count'] = pd.Series([f"{count:.2f}" for count in archetypeTable['count']], index = archetypeTable.index)
             archetypeTable["% of decks"] = pd.Series(["{0:.2f}%".format(perc * 100) for perc in archetypeTable["% of decks"]], index = archetypeTable.index)
             if archetypeTable.empty:
-                emptyRow = ["https://github.com/gregknothe/YGO-Decklist-Analytics-v2/NoAvailableData.jpeg", "No Data", "N/A", "N/A"]
+                emptyRow = ["https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/NoAvailableData.jpeg", "No Data", "N/A", "N/A"]
                 archetypeTable = pd.concat([archetypeTable,pd.DataFrame(columns=archetypeTable.columns, data=[emptyRow])])
             archetypeTable.to_csv("tables/" + archetype + "/" + dateRange + ".csv", sep="|", index=False)
         
