@@ -25,6 +25,55 @@ button {
     margin-top: -9px;
     width: 310px;
 }
+/*-----------Nav Bar-------------*/
+header {
+    /*background-color: green;*/
+    margin: 0;
+    padding-top: 2;
+    position: fixed;
+    top: 0;
+    height: 20px;
+    width: 100%;
+    text-align: right;
+
+}
+
+header a{
+    text-decoration: none;
+    color: white;
+    padding-right: 6px;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdownMenu {
+    background-color: rgba(0,0,0,0);
+    /*border: none;*/
+    width: 50px;
+}
+
+.dropdownContent {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    right: 0;
+    width: 150px;
+}
+
+.dropdownContent a {
+    color: rgb(255, 255, 255);
+    padding: 12 16;
+    text-decoration: none;
+    display: block;
+    font-size: 12px;
+}
+
+.dropdownContent a:hover {background-color: #ddd;}
+.dropdown:hover .dropdownContent {display: block;}
+.dropdown:hover .dropdownMenu {background-color: #3e8e41;}
 
 /*---------------------Containers-----------------------*/
 #inputContainer {
