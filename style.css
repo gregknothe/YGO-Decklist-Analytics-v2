@@ -11,6 +11,10 @@ h1 {
     text-shadow: 1px 1px 1px rgb(202, 0, 34);
 }
 
+h2 {
+    font-size: 12px;
+}
+
 body {
     display: flex;
     flex-direction: column;
@@ -51,8 +55,8 @@ header a{
 
 .dropdownMenu {
     background-color: rgba(0,0,0,0);
-    /*border: none;*/
-    width: 50px;
+    border: none;
+    width: 40px;
 }
 
 .dropdownContent {
@@ -69,11 +73,20 @@ header a{
     text-decoration: none;
     display: block;
     font-size: 12px;
+    background-color: rgb(32, 32, 32);
 }
 
-.dropdownContent a:hover {background-color: #ddd;}
-.dropdown:hover .dropdownContent {display: block;}
-.dropdown:hover .dropdownMenu {background-color: #3e8e41;}
+.dropdownContent a:hover {
+    background-color: rgb(76, 77, 77);
+}
+
+.dropdown:hover .dropdownContent {
+    display: block;
+}
+
+.dropdown:hover .dropdownMenu {
+    background-color: rgb(32, 32, 32);
+}
 
 /*---------------------Containers-----------------------*/
 #inputContainer {

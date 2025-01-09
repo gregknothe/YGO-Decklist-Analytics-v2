@@ -409,7 +409,7 @@ def updateBlankNames():
 #updateBlankNames()
 
 #deckPartitioner()
-createArchetypeTables()
+#createArchetypeTables()
 
 
 #x = pd.read_csv("E:\Various Programs\Coding Projects\YGO Decklist Analytics\dataframes\SnakeEye\TCG_93 days_extra_deck.csv", sep="|")
