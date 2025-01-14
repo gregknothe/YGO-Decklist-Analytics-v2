@@ -336,3 +336,50 @@ header a{
     font-size: 14;
     
 }
+
+/*------------------------------Pop Tables------------------------------*/
+
+#popTable {
+    /*background-color: green;*/
+    display: flex;
+    width: 800px;
+}
+
+#popTableTCG {
+    /*background-color: red;*/
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+.popArch {
+    display: flex;
+    /*background-color: yellow;*/
+    height: 300px;
+    justify-content: center;
+}
+
+.popMainArch, .popSubArch, .popMainCards, .popSubCards {
+    /*background-color: rgb(65, 65, 65);*/
+    text-align: center;
+    width: 170px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+
+.popCards {
+    display: flex;
+    /*background-color: green;*/
+    height: 500px;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+table {
+    width: 170px;
+}
+
+td {
+    background-color: rgb(51, 51, 51);
+}

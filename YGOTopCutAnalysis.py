@@ -397,6 +397,31 @@ def updateBlankNames():
     print("------------------Names updated.------------------")
     return
 
+#--------------------------Popular Table Generation-------------------------------
+
+def popularTableGeneration():
+    df = pd.read_csv("cardListFile.csv", delimiter="|")
+    df["date"] = pd.to_datetime(df["date"])
+    today = datetime.datetime.today()
+    df = df[today - df["date"] <= datetime.timedelta(days=93)]
+    df = df.reset_index(drop=True)
+    mainDF = df[df["deck"] == "main_deck"]
+    sideDF = df[df["deck"] == "side_deck"]
+    extraDF = df[df["deck"] == "extra_deck"]
+
+    mainDF = mainDF.drop_duplicates(subset="deckID", keep="first").reset_index(drop=True)
+    for format in ["TCG", "OCG"]:
+        mainDF = mainDF[mainDF["format"]==format]
+        mainArchCount = mainDF["tag1"].value_counts()
+
+        subArchCount = mainDF["tag2"].value_counts().add(mainDF["tag3"].value_counts(), fill_value=0)
+
+        print(subArchCount.sort_values(ascending=False))
+
+    return
+
+popularTableGeneration()
+
 #--------------------------Clean Set Up---------------------------------            446394
 #createURL() #4:35 
 #createCardList("urlList.csv", "cardListFile.csv") #1:30:23
