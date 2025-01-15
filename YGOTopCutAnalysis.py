@@ -425,15 +425,15 @@ def popularTableGeneration():
 
         mainDFCards = mainDF[mainDF["format"]==formats]
         mainCardFormat = mainDFCards["name"].value_counts()
-        mainCardFormat.head(20).to_csv("popList/main_" + formats + "_cards.csv", sep="|")
+        mainCardFormat.head(20).to_csv("popList/main_" + formats + "_cards.csv", sep="|", header=False)
 
         extraDFCards = extraDF[extraDF["format"]==formats]
         extraCardFormat = extraDFCards["name"].value_counts()
-        extraCardFormat.head(20).to_csv("popList/extra_" + formats + "_cards.csv", sep="|")
+        extraCardFormat.head(10).to_csv("popList/extra_" + formats + "_cards.csv", sep="|", header=False)
 
         sideDFCards = sideDF[sideDF["format"]==formats]
         sideCardFormat = sideDFCards["name"].value_counts()
-        sideCardFormat.head(20).to_csv("popList/side_" + formats + "_cards.csv", sep="|")
+        sideCardFormat.head(10).to_csv("popList/side_" + formats + "_cards.csv", sep="|", header=False)
 
         """
                 mainDFCards = mainDF[mainDF["format"]==formats]
@@ -453,7 +453,7 @@ def popularTableGeneration():
         """
     return
 
-popularTableGeneration()
+#popularTableGeneration()
 
 #--------------------------Clean Set Up---------------------------------            446394
 #createURL() #4:35 

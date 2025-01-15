@@ -176,7 +176,7 @@
             <div id="popArchOCG" class="popArch">
                 <div id="popMainArchOCG" class="popMainArch">
                     Main Archetypes
-                    <table id="popMainARchOCGTable">
+                    <table id="popMainArchOCGTable">
 
                     </table>
                 </div>
@@ -453,14 +453,14 @@
 
 /*--------------------------------------------Popular Tables---------------------------------------------------------*/
 
-    function displayPopularTables(data, table) {
-        const table = document.getElementById(table);
-        
+    function displayPopularTables(data, table2) {
+        var popTable = document.getElementById(table2);
+
         data.forEach((row, index) => {
-            const tr = document.createElement("tr");
+            var tr = document.createElement("tr");
             var counter = 0;
             row.forEach(cell => {
-                const td = document.createElement(index === 0? "th" : "td");
+                var td = document.createElement("td");
                 if (counter == 0) {
                     td.innerHTML = cell;
                     tr.appendChild(td);
@@ -469,14 +469,86 @@
                     td.innerHTML = cell;
                     tr.appendChild(td);
                 }
+                counter = counter + 1;
             });
-            table.appendChild(tr);
-        });
+            popTable.appendChild(tr); 
 
-        return table;
-    }
+        }); 
 
-    displayPopularTables(paseCSV(""))
+        
+    };
+
+
+    fetchCSV("https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/popList/main_TCG_arch.csv").then(data => {
+        if (data) {
+            console.log(data);
+            displayPopularTables(data, "popMainArchTCGTable");
+        }
+    });
+
+    fetchCSV("https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/popList/sub_TCG_arch.csv").then(data => {
+        if (data) {
+            console.log(data);
+            displayPopularTables(data, "popSubArchTCGTable");
+        }
+    });
+
+    fetchCSV("https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/popList/main_OCG_arch.csv").then(data => {
+        if (data) {
+            console.log(data);
+            displayPopularTables(data, "popMainArchOCGTable");
+        }
+    });
+
+    fetchCSV("https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/popList/sub_OCG_arch.csv").then(data => {
+        if (data) {
+            console.log(data);
+            displayPopularTables(data, "popSubArchOCGTable");
+        }
+    });
+
+    fetchCSV("https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/popList/main_TCG_cards.csv").then(data => {
+        if (data) {
+            console.log(data);
+            displayPopularTables(data, "popMainCardsTCGTable");
+        }
+    });
+
+    fetchCSV("https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/popList/main_OCG_cards.csv").then(data => {
+        if (data) {
+            console.log(data);
+            displayPopularTables(data, "popMainCardsOCGTable");
+        }
+    });
+
+    fetchCSV("https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/popList/side_TCG_cards.csv").then(data => {
+        if (data) {
+            console.log(data);
+            displayPopularTables(data, "popSubSideCardsTCGTable");
+        }
+    });
+
+    fetchCSV("https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/popList/side_OCG_cards.csv").then(data => {
+        if (data) {
+            console.log(data);
+            displayPopularTables(data, "popSubSideCardsOCGTable");
+        }
+    });
+
+    fetchCSV("https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/popList/extra_TCG_cards.csv").then(data => {
+        if (data) {
+            console.log(data);
+            displayPopularTables(data, "popSubExtraCardsTCGTable");
+        }
+    });
+
+    fetchCSV("https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/popList/extra_OCG_cards.csv").then(data => {
+        if (data) {
+            console.log(data);
+            displayPopularTables(data, "popSubExtraCardsOCGTable");
+        }
+    });
+
 /* ---------------------------------------------------------------TEST AREA------------------------------------------------------------*/
     function displayDeckInfo(data) {
         var deckCount = document.getElementById("deckCount");
