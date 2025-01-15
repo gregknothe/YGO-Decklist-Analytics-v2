@@ -403,21 +403,54 @@ def popularTableGeneration():
     df = pd.read_csv("cardListFile.csv", delimiter="|")
     df["date"] = pd.to_datetime(df["date"])
     today = datetime.datetime.today()
-    df = df[today - df["date"] <= datetime.timedelta(days=93)]
+    df = df[today - df["date"] <= datetime.timedelta(days=31)]
     df = df.reset_index(drop=True)
     mainDF = df[df["deck"] == "main_deck"]
     sideDF = df[df["deck"] == "side_deck"]
     extraDF = df[df["deck"] == "extra_deck"]
+    mainDFTags = mainDF.drop_duplicates(subset="deckID", keep="first").reset_index(drop=True)
+    mainCards = mainDF.drop_duplicates(subset="code", keep="first").reset_index(drop=True)
+    sideCards = sideDF.drop_duplicates(subset="code", keep="first").reset_index(drop=True)
+    extraCards = extraDF.drop_duplicates(subset="code", keep="first").reset_index(drop=True)
 
-    mainDF = mainDF.drop_duplicates(subset="deckID", keep="first").reset_index(drop=True)
-    for format in ["TCG", "OCG"]:
-        mainDF = mainDF[mainDF["format"]==format]
-        mainArchCount = mainDF["tag1"].value_counts()
+    #print(mainDF[mainDF["format"]=="OCG"])
 
-        subArchCount = mainDF["tag2"].value_counts().add(mainDF["tag3"].value_counts(), fill_value=0)
+    for formats in ["TCG", "OCG"]:
+        #Getting Tags for "Top Archetypes" and "Top Sub Archetypes" list
+        mainDFFormat = mainDFTags[mainDFTags["format"]==formats]
+        mainArchCount = mainDFFormat["tag1"].value_counts()
+        subArchCount = mainDFFormat["tag2"].value_counts().add(mainDFFormat["tag3"].value_counts(), fill_value=0)
+        mainArchCount.sort_values(ascending=False).head(10).to_csv("popList/main_" + formats + "_arch.csv", sep="|")
+        subArchCount.sort_values(ascending=False).head(10).to_csv("popList/sub_" + formats + "_arch.csv", sep="|")
 
-        print(subArchCount.sort_values(ascending=False))
+        mainDFCards = mainDF[mainDF["format"]==formats]
+        mainCardFormat = mainDFCards["name"].value_counts()
+        mainCardFormat.head(20).to_csv("popList/main_" + formats + "_cards.csv", sep="|")
 
+        extraDFCards = extraDF[extraDF["format"]==formats]
+        extraCardFormat = extraDFCards["name"].value_counts()
+        extraCardFormat.head(20).to_csv("popList/extra_" + formats + "_cards.csv", sep="|")
+
+        sideDFCards = sideDF[sideDF["format"]==formats]
+        sideCardFormat = sideDFCards["name"].value_counts()
+        sideCardFormat.head(20).to_csv("popList/side_" + formats + "_cards.csv", sep="|")
+
+        """
+                mainDFCards = mainDF[mainDF["format"]==formats]
+        mainCardFormat = mainDFCards["code"].value_counts()
+        mainCardFormat = mainCardFormat.head(20)
+        mainCardFormat = pd.merge(mainCardFormat, mainCards[["code", "name"]], on="code", how="left")
+
+        extraDFCards = extraDF[extraDF["format"]==formats]
+        extraCardFormat = extraDFCards["code"].value_counts()
+        extraCardFormat = extraCardFormat.head(20)
+        extraCardFormat = pd.merge(extraCardFormat, extraCards[["code", "name"]], on="code", how="left")
+
+        sideDFCards = sideDF[sideDF["format"]==formats]
+        sideCardFormat = sideDFCards["code"].value_counts()
+        sideCardFormat = sideCardFormat.head(20)
+        sideCardFormat = pd.merge(sideCardFormat, sideCards[["code", "name"]], on="code", how="left")
+        """
     return
 
 popularTableGeneration()
