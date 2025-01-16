@@ -420,8 +420,8 @@ def popularTableGeneration():
         mainDFFormat = mainDFTags[mainDFTags["format"]==formats]
         mainArchCount = mainDFFormat["tag1"].value_counts()
         subArchCount = mainDFFormat["tag2"].value_counts().add(mainDFFormat["tag3"].value_counts(), fill_value=0)
-        mainArchCount.sort_values(ascending=False).head(10).to_csv("popList/main_" + formats + "_arch.csv", sep="|")
-        subArchCount.sort_values(ascending=False).head(10).to_csv("popList/sub_" + formats + "_arch.csv", sep="|")
+        mainArchCount.sort_values(ascending=False).head(10).to_csv("popList/main_" + formats + "_arch.csv", sep="|", header=False)
+        subArchCount.sort_values(ascending=False).head(10).to_csv("popList/sub_" + formats + "_arch.csv", sep="|", header=False)
 
         mainDFCards = mainDF[mainDF["format"]==formats]
         mainCardFormat = mainDFCards["name"].value_counts()
@@ -434,26 +434,31 @@ def popularTableGeneration():
         sideDFCards = sideDF[sideDF["format"]==formats]
         sideCardFormat = sideDFCards["name"].value_counts()
         sideCardFormat.head(10).to_csv("popList/side_" + formats + "_cards.csv", sep="|", header=False)
-
-        """
-                mainDFCards = mainDF[mainDF["format"]==formats]
-        mainCardFormat = mainDFCards["code"].value_counts()
-        mainCardFormat = mainCardFormat.head(20)
-        mainCardFormat = pd.merge(mainCardFormat, mainCards[["code", "name"]], on="code", how="left")
-
-        extraDFCards = extraDF[extraDF["format"]==formats]
-        extraCardFormat = extraDFCards["code"].value_counts()
-        extraCardFormat = extraCardFormat.head(20)
-        extraCardFormat = pd.merge(extraCardFormat, extraCards[["code", "name"]], on="code", how="left")
-
-        sideDFCards = sideDF[sideDF["format"]==formats]
-        sideCardFormat = sideDFCards["code"].value_counts()
-        sideCardFormat = sideCardFormat.head(20)
-        sideCardFormat = pd.merge(sideCardFormat, sideCards[["code", "name"]], on="code", how="left")
-        """
+        
     return
 
 #popularTableGeneration()
+
+
+def popTest(formats, deck, startDate, endDate, header):
+    df = pd.read_csv("cardListFile.csv", delimiter="|")
+    df["date"] = pd.to_datetime(df["date"])
+    today = datetime.datetime.today()
+
+    df = df[(today - df["date"] <= datetime.timedelta(days=endDate)) & (today - df["date"] >= datetime.timedelta(days=startDate))]
+    df = df[df["format"]==formats]
+    df = df[df["deck"]==deck]
+
+    df = df.drop_duplicates()
+    df = df.reset_index(drop=True)
+    deckCount = len(df["deckID"].unique())
+    df = df["name"].value_counts()
+    df = pd.DataFrame({"name": df.index, "perc": df.values})
+    df["perc"] = round(df["perc"] / deckCount, 2)
+    print(df.head(header))
+    return
+
+popTest("TCG", "side_deck", 0, 31, 30)
 
 #--------------------------Clean Set Up---------------------------------            446394
 #createURL() #4:35 
