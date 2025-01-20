@@ -425,15 +425,15 @@ def popularTableGeneration():
 
         mainDFCards = mainDF[mainDF["format"]==formats]
         mainCardFormat = mainDFCards["name"].value_counts()
-        mainCardFormat.head(20).to_csv("popList/main_" + formats + "_cards.csv", sep="|", header=False)
+        mainCardFormat.head(50).to_csv("popList/main_" + formats + "_cards.csv", sep="|", header=False)
 
         extraDFCards = extraDF[extraDF["format"]==formats]
         extraCardFormat = extraDFCards["name"].value_counts()
-        extraCardFormat.head(10).to_csv("popList/extra_" + formats + "_cards.csv", sep="|", header=False)
+        extraCardFormat.head(30).to_csv("popList/extra_" + formats + "_cards.csv", sep="|", header=False)
 
         sideDFCards = sideDF[sideDF["format"]==formats]
         sideCardFormat = sideDFCards["name"].value_counts()
-        sideCardFormat.head(10).to_csv("popList/side_" + formats + "_cards.csv", sep="|", header=False)
+        sideCardFormat.head(30).to_csv("popList/side_" + formats + "_cards.csv", sep="|", header=False)
         
     return
 
@@ -458,7 +458,7 @@ def popTest(formats, deck, startDate, endDate, header):
     print(df.head(header))
     return
 
-popTest("TCG", "side_deck", 0, 31, 30)
+#popTest("TCG", "main_deck", 0, 31, 30)
 
 #--------------------------Clean Set Up---------------------------------            446394
 #createURL() #4:35 

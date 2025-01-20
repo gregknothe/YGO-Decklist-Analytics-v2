@@ -65,6 +65,7 @@
         <button class="deckTabs" id="extraTab">Extra Deck</button>
         <button class="deckTabs" id="sideTab">Side Deck</button>
         <button class="deckTabs" id="infoTab">More Info</button>
+        <button class="deckTabs" id="popTab" style="width: 95px;; margin-left: 370px; margin-right: 0px;">Most Popular</button>
     </div>
 
     <div id="cardContainer">
@@ -110,110 +111,225 @@
                 </div>
             </div>
         </div>
+
+        <div id="popContainer">
+            <div id="popTableTitles">
+                <h2 style="font-size: 20px; text-align: center; margin-bottom: 0px;">Most Popular</h2>
+                <h2 style="font-size: 14px; text-align: center; margin-top: 0px;">(1 Month)</h2>
+                <div style="display: flex; width: 800px;">
+                    <div style="width: 400px; text-align: center;  font-size: 20px;">
+                        TCG
+                    </div>
+                    <div style="width: 400px; text-align: center; font-size: 20px;">
+                        OCG
+                    </div>
+                </div>
+            </div>
+
+            <div id="popTable">
+                <div id="popTableTCG"> <!---------------------------------------------------------------------------------------->
+                    
+                    <div id="popArchTCG" class="popArch">
+                        <div id="popMainArchTCG" class="popMainArch">
+                            Main Archetypes<br>
+                            <table id="popMainArchTCGTable">
+                               
+                            </table>
+                        </div>
+                        <div id="popSubArchTCG" class="popSubArch">
+                            Sub Archetypes<br>
+                            <table id="popSubArchTCGTable">
+                               
+                            </table>
+                        </div>
+
+                    </div>
+
+                    Top 50 Main Deck
+                    <div class="popScrollTable">
+                        
+                        <table id="popMainCardsTCGTable" style="width: 340px;">
+
+                        </table>
+                    </div>
+
+                    <br>
+                    Top 30 Extra Deck
+                    <div class="popScrollTable">
+                        <table id="popSubExtraCardsTCGTable" style="width: 340px;">
+
+                        </table>
+                    </div>
+
+                    <br>
+                    Top 30 Side deck
+                    <div class="popScrollTable">
+                        <table id="popSubSideCardsTCGTable" style="width: 340px;">
+
+                        </table>
+                    </div>
+                </div>
+                
+                <div id="popTableOCG"> <!--------------------------------------------------------------------------------------->
+                    
+                    <div id="popArchOCG" class="popArch">
+                        <div id="popMainArchOCG" class="popMainArch">
+                            Main Archetypes
+                            <table id="popMainArchOCGTable">
+        
+                            </table>
+                        </div>
+                        <div id="popSubArchOCG" class="popSubArch">
+                            Sub Archetypes
+                            <table id="popSubArchOCGTable">
+        
+                            </table>
+                        </div>
+                    </div>
+
+                    
+                    Top 50 Main Deck
+                    <div class="popScrollTable">
+                        
+                        <table id="popMainCardsOCGTable" style="width: 340px;">
+
+                        </table>
+                    </div>
+
+                    <br>
+                    Top 30 Extra Deck
+                    <div class="popScrollTable">
+                        <table id="popSubExtraCardsOCGTable" style="width: 340px;">
+
+                        </table>
+                    </div>
+
+                    <br>
+                    Top 30 Side deck
+                    <div class="popScrollTable">
+                        <table id="popSubSideCardsOCGTable" style="width: 340px;">
+                            
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+<!--------------------------------------------------------------------------------------------------------->
+<!--    <div id="popContainer">
+            <div id="popTableTitles">
+                <h2 style="font-size: 20px; text-align: center; margin-bottom: 0px;">Most Popular</h2>
+                <h2 style="font-size: 14px; text-align: center; margin-top: 0px;">(1 Month)</h2>
+                <div style="display: flex; width: 800px;">
+                    <div style="width: 400px; text-align: center;  font-size: 20px;">
+                        TCG
+                    </div>
+                    <div style="width: 400px; text-align: center; font-size: 20px;">
+                        OCG
+                    </div>
+                </div>
+            </div>
+        
+            <div id="popTable">
+                <div id="popTableTCG">
+                    
+                    <div id="popArchTCG" class="popArch">
+                        <div id="popMainArchTCG" class="popMainArch">
+                            Main Archetypes<br>
+                            <table id="popMainArchTCGTable">
+                               
+                            </table>
+                        </div>
+                        <div id="popSubArchTCG" class="popSubArch">
+                            Sub Archetypes<br>
+                            <table id="popSubArchTCGTable">
+                               
+                            </table>
+                        </div>
+                    </div>
+        
+                    <div id="popCardsTCG" class="popCards">
+                        <div id="popMainCardsTCG" class="popMainCards">
+                            Main Deck Cards <br>
+                            <table id="popMainCardsTCGTable">
+               
+                            </table>
+                        </div>
+                        <div id="popSubCardsTCG" class="popSubCards">
+                            <div id="popSubExtraCardsTCG" class="popSubExtraCards">
+                                Extra Deck Cards <br>
+                                <table id="popSubExtraCardsTCGTable">
+                                    
+                                </table>
+                            </div>
+                            <div id="popSubSideCardsTCG" class="popSubSideCards">
+                               Side Deck Cards<br>
+                                <table id="popSubSideCardsTCGTable">
+                                
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="popTableOCG">
+                    
+                    <div id="popArchOCG" class="popArch">
+                        <div id="popMainArchOCG" class="popMainArch">
+                            Main Archetypes
+                            <table id="popMainArchOCGTable">
+        
+                            </table>
+                        </div>
+                        <div id="popSubArchOCG" class="popSubArch">
+                            Sub Archetypes
+                            <table id="popSubArchOCGTable">
+        
+                            </table>
+                        </div>
+                    </div>
+        
+                    <div id="popCardsOCG" class="popCards">
+                        <div id="popMainCardsOCG" class="popMainCards">
+                            Main Deck Cards
+                            <table id="popMainCardsOCGTable">
+                                
+                            </table>
+                        </div>
+                        <div id="popSubCardsOCG" class="popSubCards">
+                            <div id="popSubExtraCardsOCG" class="popSubExtraCards">
+                                Extra Deck Cards
+                                <table id="popSubExtraCardsOCGTable">
+        
+                                </table>
+                            </div>
+                            <div id="popSubSideCardsOCG" class="popSubSideCards">
+                                Side Deck Cards
+                                <table id="popSubSideCardsOCGTable">
+        
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+        
+           </div>
+        
+        </div>
+        -->
+
+    
     </div>
+
 
     <!--overlay thing-->
     <div id="overlay" class="overlay" onclick="closeImage()">
         <img id="enlargedImage" class="enlargedImage" src="" alt="Enlarged Image">
     </div>
 </body>
-    <div id="popTableTitles">
-        <h2 style="font-size: 20px; text-align: center; margin-bottom: 0px;">Most Popular</h2>
-        <h2 style="font-size: 14px; text-align: center; margin-top: 0px;">(1 Month)</h2>
-        <div style="display: flex; width: 800px;">
-            <div style="width: 400px; text-align: center;  font-size: 20px;">
-                TCG
-            </div>
-            <div style="width: 400px; text-align: center; font-size: 20px;">
-                OCG
-            </div>
-        </div>
-    </div>
-
-    <div id="popTable">
-        <div id="popTableTCG">
-            
-            <div id="popArchTCG" class="popArch">
-                <div id="popMainArchTCG" class="popMainArch">
-                    Main Archetypes<br>
-                    <table id="popMainArchTCGTable">
-                       
-                    </table>
-                </div>
-                <div id="popSubArchTCG" class="popSubArch">
-                    Sub Archetypes<br>
-                    <table id="popSubArchTCGTable">
-                       
-                    </table>
-                </div>
-            </div>
-
-            <div id="popCardsTCG" class="popCards">
-                <div id="popMainCardsTCG" class="popMainCards">
-                    Main Deck Cards <br>
-                    <table id="popMainCardsTCGTable">
-       
-                    </table>
-                </div>
-                <div id="popSubCardsTCG" class="popSubCards">
-                    <div id="popSubExtraCardsTCG" class="popSubExtraCards">
-                        Extra Deck Cards <br>
-                        <table id="popSubExtraCardsTCGTable">
-                            
-                        </table>
-                    </div>
-                    <div id="popSubSideCardsTCG" class="popSubSideCards">
-                       Side Deck Cards<br>
-                        <table id="popSubSideCardsTCGTable">
-                        
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="popTableOCG">
-            
-            <div id="popArchOCG" class="popArch">
-                <div id="popMainArchOCG" class="popMainArch">
-                    Main Archetypes
-                    <table id="popMainArchOCGTable">
-
-                    </table>
-                </div>
-                <div id="popSubArchOCG" class="popSubArch">
-                    Sub Archetypes
-                    <table id="popSubArchOCGTable">
-
-                    </table>
-                </div>
-            </div>
-
-            <div id="popCardsOCG" class="popCards">
-                <div id="popMainCardsOCG" class="popMainCards">
-                    Main Deck Cards
-                    <table id="popMainCardsOCGTable">
-                        
-                    </table>
-                </div>
-                <div id="popSubCardsOCG" class="popSubCards">
-                    <div id="popSubExtraCardsOCG" class="popSubExtraCards">
-                        Extra Deck Cards
-                        <table id="popSubExtraCardsOCGTable">
-
-                        </table>
-                    </div>
-                    <div id="popSubSideCardsOCG" class="popSubSideCards">
-                        Side Deck Cards
-                        <table id="popSubSideCardsOCGTable">
-
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-   </div>
 
 
     <h2>[ Last Updated: 1-9-25 ]</h2>
@@ -225,11 +341,13 @@
     const extraTab = document.getElementById("extraTab");
     const sideTab = document.getElementById("sideTab");
     const infoTab = document.getElementById("infoTab");
+    const popTab = document.getElementById("popTab");
 
     var mainContainer = document.getElementById("mainContainer");
     var extraContainer = document.getElementById("extraContainer");
     var sideContainer = document.getElementById("sideContainer");
     var infoContainer = document.getElementById("infoContainer");
+    var popContainer = document.getElementById("popContainer");    /*-----------------------------------------------------------------------------------*/
     var mainBox = document.getElementById("mainBox");
     var subBox = document.getElementById("subBox");
 
@@ -245,12 +363,15 @@
             sideTab.classList.add("deckTabs");
             infoTab.classList.remove("deckTabsActive");
             infoTab.classList.add("deckTabs");
+            popTab.classList.remove("deckTabsActive");
+            popTab.classList.add("deckTabs");
 
             mainTab.classList.add("deckTabsActive");
 
             extraContainer.style.display = "none";
             sideContainer.style.display = "none";
             infoContainer.style.display = "none";
+            popContainer.style.display = "none";
             mainContainer.style.display = "flex";
             
         }
@@ -266,12 +387,15 @@
             mainTab.classList.add("deckTabs");
             infoTab.classList.remove("deckTabsActive");
             infoTab.classList.add("deckTabs");
+            popTab.classList.remove("deckTabsActive");
+            popTab.classList.add("deckTabs");
 
             extraTab.classList.add("deckTabsActive");
 
             mainContainer.style.display = "none";
             sideContainer.style.display = "none";
             infoContainer.style.display = "none";
+            popContainer.style.display = "none";
             extraContainer.style.display = "flex";
         }
     })
@@ -286,12 +410,15 @@
             mainTab.classList.add("deckTabs");
             infoTab.classList.remove("deckTabsActive");
             infoTab.classList.add("deckTabs");
+            popTab.classList.remove("deckTabsActive");
+            popTab.classList.add("deckTabs");
 
             sideTab.classList.add("deckTabsActive");
 
             extraContainer.style.display = "none";
             mainContainer.style.display = "none";
             infoContainer.style.display = "none";
+            popContainer.style.display = "none";
             sideContainer.style.display = "flex";
         }
     })
@@ -306,15 +433,42 @@
             mainTab.classList.add("deckTabs");
             sideTab.classList.remove("deckTabsActive");
             sideTab.classList.add("deckTabs");
+            popTab.classList.remove("deckTabsActive");
+            popTab.classList.add("deckTabs");
 
             infoTab.classList.add("deckTabsActive");
 
             extraContainer.style.display = "none";
             sideContainer.style.display = "none";
             mainContainer.style.display = "none";
+            popContainer.style.display = "none";
             infoContainer.style.display = "flex";
         }
     })
+
+    popTab.addEventListener("click", function() {
+        if (popTab.classList.contains("deckTabs")) {
+            popTab.classList.remove("deckTabs");
+            
+            extraTab.classList.remove("deckTabsActive");
+            extraTab.classList.add("deckTabs");
+            mainTab.classList.remove("deckTabsActive");
+            mainTab.classList.add("deckTabs");
+            sideTab.classList.remove("deckTabsActive");
+            sideTab.classList.add("deckTabs");
+            infoTab.classList.remove("deckTabsActive");
+            infoTab.classList.add("deckTabs");
+
+            popTab.classList.add("deckTabsActive");
+
+            extraContainer.style.display = "none";
+            sideContainer.style.display = "none";
+            mainContainer.style.display = "none";
+            infoContainer.style.display = "none";
+            popContainer.style.display = "flex";
+        }
+    })
+
 
 
 </script>
