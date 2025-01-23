@@ -417,33 +417,54 @@ def popularTableGeneration():
 
     for formats in ["TCG", "OCG"]:
         #Getting Tags for "Top Archetypes" and "Top Sub Archetypes" list
+
+        deckCount = len(mainDFFormat["deckID"].unique())
+
         mainDFFormat = mainDFTags[mainDFTags["format"]==formats]
         mainArchCount = mainDFFormat["tag1"].value_counts()
         subArchCount = mainDFFormat["tag2"].value_counts().add(mainDFFormat["tag3"].value_counts(), fill_value=0)
+
         mainArchCount.sort_values(ascending=False).head(10).to_csv("popList/main_" + formats + "_arch.csv", sep="|", header=False)
+
         subArchCount.sort_values(ascending=False).head(10).to_csv("popList/sub_" + formats + "_arch.csv", sep="|", header=False)
 
-        mainDFCards = mainDF[mainDF["format"]==formats]
+        mainDFCards = mainDF[mainDF["format"]==formats].drop_duplicates()
         mainCardFormat = mainDFCards["name"].value_counts()
-        mainCardFormat.head(50).to_csv("popList/main_" + formats + "_cards.csv", sep="|", header=False)
 
-        extraDFCards = extraDF[extraDF["format"]==formats]
+        mainCardFormat = pd.DataFrame({"name": mainCardFormat.index, "perc": mainCardFormat.values})
+        mainCardFormat["perc"] = round(mainCardFormat["perc"] / deckCount, 2)
+
+        mainCardFormat.head(50).to_csv("popList/main_" + formats + "_cards.csv", sep="|", header=False, index=False)
+
+
+        extraDFCards = extraDF[extraDF["format"]==formats].drop_duplicates()
         extraCardFormat = extraDFCards["name"].value_counts()
-        extraCardFormat.head(30).to_csv("popList/extra_" + formats + "_cards.csv", sep="|", header=False)
 
-        sideDFCards = sideDF[sideDF["format"]==formats]
+        extraCardFormat = pd.DataFrame({"name": extraCardFormat.index, "perc": extraCardFormat.values})
+        extraCardFormat["perc"] = round(extraCardFormat["perc"] / deckCount, 2)
+
+        extraCardFormat.head(30).to_csv("popList/extra_" + formats + "_cards.csv", sep="|", header=False, index=False)
+
+
+        sideDFCards = sideDF[sideDF["format"]==formats].drop_duplicates()
         sideCardFormat = sideDFCards["name"].value_counts()
-        sideCardFormat.head(30).to_csv("popList/side_" + formats + "_cards.csv", sep="|", header=False)
+
+        sideCardFormat = pd.DataFrame({"name": sideCardFormat.index, "perc": sideCardFormat.values})
+        sideCardFormat["perc"] = round(sideCardFormat["perc"] / deckCount, 2)
+
+        sideCardFormat.head(30).to_csv("popList/side_" + formats + "_cards.csv", sep="|", header=False, index=False)
         
     return
 
 #popularTableGeneration()
 
 
-def popTest(formats, deck, startDate, endDate, header):
+def popCalc(formats, deck, startDate, endDate):
     df = pd.read_csv("cardListFile.csv", delimiter="|")
     df["date"] = pd.to_datetime(df["date"])
     today = datetime.datetime.today()
+    pic = df.drop_duplicates(subset=["name"], keep="first")
+    pic = pic[["name", "imgSource"]]
 
     df = df[(today - df["date"] <= datetime.timedelta(days=endDate)) & (today - df["date"] >= datetime.timedelta(days=startDate))]
     df = df[df["format"]==formats]
@@ -455,10 +476,28 @@ def popTest(formats, deck, startDate, endDate, header):
     df = df["name"].value_counts()
     df = pd.DataFrame({"name": df.index, "perc": df.values})
     df["perc"] = round(df["perc"] / deckCount, 2)
-    print(df.head(header))
+    if deck == "main_deck":
+        df = df.head(50)
+    else:
+        df = df.head(30)
+    df = pd.merge(df, pic, on="name", how="left")
+    return df
+
+#print(popCalc("TCG", "main_deck", 0, 31))
+
+def popTable():
+    for f in ["TCG", "OCG"]:
+        for d in ["main_deck", "side_deck", "extra_deck"]:
+            thisMonth = popCalc(f, d, 0, 31)
+            lastMonth = popCalc(f, d, 32, 62)
+            diff = pd.merge(thisMonth, lastMonth, on="name", how="left")
+            diff.fillna(0, inplace=True)
+            diff["perc"] = round(diff["perc_x"] - diff["perc_y"], 2)
+            diff = pd.DataFrame({"img": diff["imgSource_x"], "name": diff["name"], "perc": diff["perc_x"], "diff": diff["perc"]})
+            diff.to_csv("popList/" + d.replace("_deck", "") + "_" + f + "_cards.csv", sep="|", header=False, index=False)
     return
 
-#popTest("TCG", "main_deck", 0, 31, 30)
+popTable()
 
 #--------------------------Clean Set Up---------------------------------            446394
 #createURL() #4:35 

@@ -131,13 +131,13 @@
                     
                     <div id="popArchTCG" class="popArch">
                         <div id="popMainArchTCG" class="popMainArch">
-                            Main Archetypes<br>
+                            Top Archetypes<br>
                             <table id="popMainArchTCGTable">
                                
                             </table>
                         </div>
                         <div id="popSubArchTCG" class="popSubArch">
-                            Sub Archetypes<br>
+                            Top Sub Engines<br>
                             <table id="popSubArchTCGTable">
                                
                             </table>
@@ -174,13 +174,13 @@
                     
                     <div id="popArchOCG" class="popArch">
                         <div id="popMainArchOCG" class="popMainArch">
-                            Main Archetypes
+                            Top Archetypes
                             <table id="popMainArchOCGTable">
         
                             </table>
                         </div>
                         <div id="popSubArchOCG" class="popSubArch">
-                            Sub Archetypes
+                            Top Sub Engines
                             <table id="popSubArchOCGTable">
         
                             </table>
@@ -332,7 +332,7 @@
 </body>
 
 
-    <h2>[ Last Updated: 1-9-25 ]</h2>
+    <h2>[ Last Updated: 1-20-25 ]</h2>
 </html>
 
 <script>
@@ -616,10 +616,19 @@
             row.forEach(cell => {
                 var td = document.createElement("td");
                 if (counter == 0) {
-                    td.innerHTML = cell;
+                    td.src = cell;
+                    td.className = popTableImg;
                     tr.appendChild(td);
                 }
                 else if (counter == 1) {
+                    td.innerHTML = cell;
+                    tr.appendChild(td);
+                }
+                else if (counter == 2) {
+                    td.innerHTML = cell;
+                    tr.appendChild(td);
+                }
+                else if (counter == 3) {
                     td.innerHTML = cell;
                     tr.appendChild(td);
                 }
