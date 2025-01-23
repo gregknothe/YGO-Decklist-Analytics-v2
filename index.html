@@ -132,15 +132,19 @@
                     <div id="popArchTCG" class="popArch">
                         <div id="popMainArchTCG" class="popMainArch">
                             Top Archetypes<br>
-                            <table id="popMainArchTCGTable">
-                               
-                            </table>
+                            <div class="popArchBackgrounds">
+                                <table id="popMainArchTCGTable">
+                                
+                                </table>
+                            </div>
                         </div>
                         <div id="popSubArchTCG" class="popSubArch">
                             Top Sub Engines<br>
-                            <table id="popSubArchTCGTable">
-                               
-                            </table>
+                            <div class="popArchBackgrounds">
+                                <table id="popSubArchTCGTable">
+                                
+                                </table>
+                            </div>
                         </div>
 
                     </div>
@@ -175,15 +179,19 @@
                     <div id="popArchOCG" class="popArch">
                         <div id="popMainArchOCG" class="popMainArch">
                             Top Archetypes
-                            <table id="popMainArchOCGTable">
-        
-                            </table>
+                            <div class="popArchBackgrounds">
+                                <table id="popMainArchOCGTable">
+            
+                                </table>
+                            </div>
                         </div>
                         <div id="popSubArchOCG" class="popSubArch">
                             Top Sub Engines
-                            <table id="popSubArchOCGTable">
-        
-                            </table>
+                            <div class="popArchBackgrounds">
+                                <table id="popSubArchOCGTable">
+            
+                                </table>
+                            </div>
                         </div>
                     </div>
 
@@ -656,7 +664,7 @@
 
     function displayPopularTablesArch(data, table2) {
         var popTable = document.getElementById(table2);
-
+        var rowCounter = 0;
         data.forEach((row, index) => {
             var tr = document.createElement("tr");
             var counter = 0;
@@ -672,7 +680,10 @@
                 }
                 counter = counter + 1;
             });
-            popTable.appendChild(tr); 
+            rowCounter = rowCounter + 1;
+            if (rowCounter < data.length) {
+                popTable.appendChild(tr);
+            }
 
         }); 
 

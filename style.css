@@ -362,7 +362,7 @@ header a{
 .popArch {
     display: flex;
     /*background-color: yellow;*/
-    height: 300px;
+    height: 220px;
     justify-content: center;
 }
 
@@ -416,4 +416,8 @@ td {
 
 .popTableRed {
     color: red;
+}
+
+.popArchBackgrounds {
+    background-color: rgb(17, 17, 17);
 }

@@ -458,6 +458,34 @@ def popularTableGeneration():
 
 #popularTableGeneration()
 
+def popArchCalc(formats, startDate, endDate):
+    df = pd.read_csv("cardListFile.csv", delimiter="|")
+    df["date"] = pd.to_datetime(df["date"])
+    today = datetime.datetime.today()
+
+    df = df[(today - df["date"] <= datetime.timedelta(days=endDate)) & (today - df["date"] >= datetime.timedelta(days=startDate))]
+    df = df[df["format"]==formats]
+
+    df = df.drop_duplicates(subset=["deckID"], keep="first")
+    
+    deckCount = len(df["deckID"].unique())
+
+    mainCount = df["tag1"].value_counts()
+    subCount = df["tag2"].value_counts().add(df["tag3"].value_counts(), fill_value=0)
+
+    mainCount = pd.DataFrame({"name": mainCount.index, "perc": mainCount.values})
+    mainCount["perc"] = round(mainCount["perc"] / deckCount, 2) 
+
+    subCount = pd.DataFrame({"name": subCount.index, "perc": subCount.values})
+    subCount["perc"] = round(subCount["perc"] / deckCount, 2)   
+
+    mainCount.sort_values(by="perc", ascending=False).head(10).to_csv("popList/main_" + formats + "_arch.csv", sep="|", header=False)
+    subCount.sort_values(by="perc", ascending=False).head(10).to_csv("popList/sub_" + formats + "_arch.csv", sep="|", header=False)
+
+    return
+
+popArchCalc("TCG", 0, 31)
+popArchCalc("OCG", 0, 31)
 
 def popCalc(formats, deck, startDate, endDate):
     df = pd.read_csv("cardListFile.csv", delimiter="|")
@@ -497,7 +525,7 @@ def popTable():
             diff.to_csv("popList/" + d.replace("_deck", "") + "_" + f + "_cards.csv", sep="|", header=False, index=False)
     return
 
-popTable()
+#popTable()
 
 #--------------------------Clean Set Up---------------------------------            446394
 #createURL() #4:35 
