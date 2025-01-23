@@ -479,13 +479,13 @@ def popArchCalc(formats, startDate, endDate):
     subCount = pd.DataFrame({"name": subCount.index, "perc": subCount.values})
     subCount["perc"] = round(subCount["perc"] / deckCount, 2)   
 
-    mainCount.sort_values(by="perc", ascending=False).head(10).to_csv("popList/main_" + formats + "_arch.csv", sep="|", header=False)
-    subCount.sort_values(by="perc", ascending=False).head(10).to_csv("popList/sub_" + formats + "_arch.csv", sep="|", header=False)
+    mainCount.sort_values(by="perc", ascending=False).head(10).to_csv("popList/main_" + formats + "_arch.csv", sep="|", header=False, index=False)
+    subCount.sort_values(by="perc", ascending=False).head(10).to_csv("popList/sub_" + formats + "_arch.csv", sep="|", header=False, index=False)
 
     return
 
-popArchCalc("TCG", 0, 31)
-popArchCalc("OCG", 0, 31)
+#popArchCalc("TCG", 0, 31)
+#popArchCalc("OCG", 0, 31)
 
 def popCalc(formats, deck, startDate, endDate):
     df = pd.read_csv("cardListFile.csv", delimiter="|")
@@ -523,6 +523,7 @@ def popTable():
             diff["perc"] = round(diff["perc_x"] - diff["perc_y"], 2)
             diff = pd.DataFrame({"img": diff["imgSource_x"], "name": diff["name"], "perc": diff["perc_x"], "diff": diff["perc"]})
             diff.to_csv("popList/" + d.replace("_deck", "") + "_" + f + "_cards.csv", sep="|", header=False, index=False)
+        popArchCalc(f, 0, 31)
     return
 
 #popTable()
@@ -540,6 +541,8 @@ def popTable():
 
 #deckPartitioner()
 #createArchetypeTables()
+
+#popTable()
 
 
 #x = pd.read_csv("E:\Various Programs\Coding Projects\YGO Decklist Analytics\dataframes\SnakeEye\TCG_93 days_extra_deck.csv", sep="|")
