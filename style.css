@@ -168,7 +168,7 @@ header a{
 
 #mainContainer {
     width: 800px;
-    display: flex;
+    display: none;
     flex-wrap: wrap;
     justify-content: center;
 }
@@ -193,7 +193,7 @@ header a{
 }
 
 #popContainer {
-    display: none;
+    display: flex;
     flex-direction: column;
 }
 
@@ -351,7 +351,7 @@ header a{
     width: 800px;
 }
 
-#popTableTCG {
+#popTableTCG, #popTableOCG {
     /*background-color: red;*/
     width: 400px;
     display: flex;
@@ -390,6 +390,7 @@ table {
 td {
     background-color: rgb(51, 51, 51);
     font-size: 12;
+    text-align: center;
 }
 
 .popScrollTable {
@@ -403,4 +404,16 @@ td {
     overflow: scroll;
     overflow-x: hidden;
     align-content: flex-start;
+}
+
+.popTableImg {
+    width: 25px;
+}
+
+.popTableGreen {
+    color: green;
+}
+
+.popTableRed {
+    color: red;
 }

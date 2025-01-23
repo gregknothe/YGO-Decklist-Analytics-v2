@@ -61,11 +61,11 @@
     <br>
 
     <div id="deckContainer"> 
-        <button class="deckTabsActive" id="mainTab">Main Deck</button>
+        <button class="deckTabs" id="mainTab">Main Deck</button>
         <button class="deckTabs" id="extraTab">Extra Deck</button>
         <button class="deckTabs" id="sideTab">Side Deck</button>
         <button class="deckTabs" id="infoTab">More Info</button>
-        <button class="deckTabs" id="popTab" style="width: 95px;; margin-left: 370px; margin-right: 0px;">Most Popular</button>
+        <button class="deckTabsActive" id="popTab" style="width: 95px;; margin-left: 370px; margin-right: 0px;">Most Popular</button>
     </div>
 
     <div id="cardContainer">
@@ -609,6 +609,53 @@
 
     function displayPopularTables(data, table2) {
         var popTable = document.getElementById(table2);
+        var rowCounter = 0;
+        data.forEach((row, index) => {
+            var tr = document.createElement("tr");
+            var counter = 0;
+            row.forEach(cell => {
+                var td = document.createElement("td");
+                if (counter == 0) {
+                    td.innerHTML = '<img src="' + cell + '" class="popTableImg">';
+                    td.style = "width: 25px;";
+                    tr.appendChild(td);
+                }
+                else if (counter == 1) {
+                    td.innerHTML = cell;
+                    td.style = "text-align: left; padding-left: 5px;"
+                    tr.appendChild(td);
+                }
+                else if (counter == 2) {
+                    td.innerHTML = cell;
+                    td.style = "width: 35px;"
+                    tr.appendChild(td);
+                }
+                else if (counter == 3) {
+                    td.innerHTML = cell;
+                    if (cell >= 0) {
+                        td.className = "popTableGreen";
+                        td.innerHTML = "+" + cell;
+                    }
+                    else {
+                        td.className = "popTableRed";
+                    }
+                    td.style = "width: 35px;"
+                    tr.appendChild(td);
+                }
+                counter = counter + 1;
+                
+            });
+            rowCounter = rowCounter + 1;
+            if (rowCounter < data.length) {
+                popTable.appendChild(tr);
+            }
+        }); 
+
+        
+    };
+
+    function displayPopularTablesArch(data, table2) {
+        var popTable = document.getElementById(table2);
 
         data.forEach((row, index) => {
             var tr = document.createElement("tr");
@@ -616,19 +663,10 @@
             row.forEach(cell => {
                 var td = document.createElement("td");
                 if (counter == 0) {
-                    td.src = cell;
-                    td.className = popTableImg;
+                    td.innerHTML = cell;
                     tr.appendChild(td);
                 }
                 else if (counter == 1) {
-                    td.innerHTML = cell;
-                    tr.appendChild(td);
-                }
-                else if (counter == 2) {
-                    td.innerHTML = cell;
-                    tr.appendChild(td);
-                }
-                else if (counter == 3) {
                     td.innerHTML = cell;
                     tr.appendChild(td);
                 }
@@ -645,28 +683,28 @@
     fetchCSV("https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/popList/main_TCG_arch.csv").then(data => {
         if (data) {
             console.log(data);
-            displayPopularTables(data, "popMainArchTCGTable");
+            displayPopularTablesArch(data, "popMainArchTCGTable");
         }
     });
 
     fetchCSV("https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/popList/sub_TCG_arch.csv").then(data => {
         if (data) {
             console.log(data);
-            displayPopularTables(data, "popSubArchTCGTable");
+            displayPopularTablesArch(data, "popSubArchTCGTable");
         }
     });
 
     fetchCSV("https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/popList/main_OCG_arch.csv").then(data => {
         if (data) {
             console.log(data);
-            displayPopularTables(data, "popMainArchOCGTable");
+            displayPopularTablesArch(data, "popMainArchOCGTable");
         }
     });
 
     fetchCSV("https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/popList/sub_OCG_arch.csv").then(data => {
         if (data) {
             console.log(data);
-            displayPopularTables(data, "popSubArchOCGTable");
+            displayPopularTablesArch(data, "popSubArchOCGTable");
         }
     });
 
@@ -799,6 +837,27 @@
 
     function runCode() {
         removeCells();
+
+        mainTab.classList.remove("deckTabs");
+            
+        extraTab.classList.remove("deckTabsActive");
+        extraTab.classList.add("deckTabs");
+        sideTab.classList.remove("deckTabsActive");
+        sideTab.classList.add("deckTabs");
+        infoTab.classList.remove("deckTabsActive");
+        infoTab.classList.add("deckTabs");
+        popTab.classList.remove("deckTabsActive");
+        popTab.classList.add("deckTabs");
+
+        mainTab.classList.add("deckTabsActive");
+
+        extraContainer.style.display = "none";
+        sideContainer.style.display = "none";
+        infoContainer.style.display = "none";
+        popContainer.style.display = "none";
+        mainContainer.style.display = "flex";
+            
+
         fetchCSV(mainURL).then(data => {
         if (data) {
             console.log(data);
@@ -876,6 +935,13 @@
 
     document.getElementById("sideContainer").addEventListener('click', function(event) {
         if (event.target && event.target.matches('.cardImg')) {
+            console.log("clicked");
+            enlargeImage(event.target.src);
+        }
+    });
+
+    document.getElementById("popContainer").addEventListener('click', function(event) {
+        if (event.target && event.target.matches('.popTableImg')) {
             console.log("clicked");
             enlargeImage(event.target.src);
         }
