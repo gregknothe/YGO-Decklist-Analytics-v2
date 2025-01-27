@@ -75,7 +75,6 @@ def addID(file):
     print("newURLList.csv 'fixed'.")
     return
 
-
 def getDeckList(url, id):
     #scrapes the decklist from the URL and returns a dataframe with all cards and deck metadata
     url = "https://ygoprodeck.com/deck/" + url
@@ -157,33 +156,10 @@ def updateCardList(newURLListFile, cardListFile):
     decklistDF.to_csv(cardListFile, sep='|', index=False)
     return
 
-"""
 def deckPartitioner():
     x = pd.read_csv("cardListFile.csv", delimiter="|")
     x["date"] = pd.to_datetime(x["date"])
-    mainArchetypeList = list(set(x["tag1"].to_list()))
-    #mainArchetypeList = ["Snake-Eye", "Melodious", "Mikanko"]
-    today = datetime.datetime.today()
-    num = 1
-    print("Total Archetypes: " + str(len(list(set(x["tag1"].to_list())))))
-    for archetype in mainArchetypeList:
-        archetypeName = "".join(x for x in str(archetype) if x.isalnum())
-        print(str(num) + " " + str(archetypeName))
-        num += 1
-        for formats in ["TCG", "OCG"]:
-            for timeFrame in [datetime.timedelta(days=31), datetime.timedelta(days=93), datetime.timedelta(days=186), datetime.timedelta(days=365), datetime.timedelta(days=100000)]:
-                for deckType in ["main_deck", "extra_deck", "side_deck"]:
-                    os.makedirs("dataframes/"+archetypeName, exist_ok=True)
-                    df = x[(x["tag1"]==archetype) & (x["format"]==formats) & (today - x["date"] <= timeFrame) & (x["deck"]==deckType)]
-                    df.to_csv("dataframes/"+archetypeName+"/"+formats+"_"+str(timeFrame).split(",")[0]+"_"+deckType+".csv", sep="|", index=False)
-    return
-"""
-
-def deckPartitioner():
-    x = pd.read_csv("cardListFile.csv", delimiter="|")
-    x["date"] = pd.to_datetime(x["date"])
-    mainArchetypeList = list(set(x["tag1"].to_list()+x['tag2'].to_list()+x["tag3"].to_list()))
-    #mainArchetypeList = ["Snake-Eye", "Melodious", "Mikanko"]
+    mainArchetypeList = list(set(x["tag1"].to_list()+x['tag2'].to_list()+x["tag3"].to_list())),sort()
     today = datetime.datetime.today()
     num = 1
     print("Total Archetypes: " + str(len(mainArchetypeList)))
@@ -202,7 +178,6 @@ def deckPartitioner():
                     df = df[(today - df["date"] <= timeFrame) & (df["deck"]==deckType)]
                     df.to_csv("dataframes/"+archetypeName+" (sub)/"+formats+"_"+str(timeFrame).split(",")[0]+"_"+deckType+".csv", sep="|", index=False)
     return
-
 
 def codeCorrector(df):
     nameList = list(set(df["name"].to_list()))
@@ -259,37 +234,6 @@ def deckAnalysis(df):
     df = df[["image", "name", "% of decks", "count", "cardType"]].sort_values(["% of decks", "cardType", "count", "name"], ascending=[False, True, False, True]).reset_index(drop=True)
     df = df.drop("cardType", axis=1)
     return df
-
-"""
-def deckAnalysis(df):
-    df = df.fillna("")
-    cardIDList = list(set(df["code"].to_list()))
-    #cardNameList = list(set(df["name"].to_list()))
-    '''
-    if len(cardIDList) != len(cardNameList):
-        df = codeCorrector(df)
-        cardIDList = list(set(df["code"].to_list()))
-        #print(x[x["name"]=="Ash Blossom & Joyous Spring"])
-    '''
-    df = codeCorrector(df)
-    cardIDList = list(set(df["code"].to_list()))
-    totalDeckCount = len(list(set(df["deckID"].to_list())))
-    cardDeckCount, cardAvgCount, cardName, cardImgSource = [], [], [], []
-    for cardID in cardIDList:
-        cardDF = df[df["code"]==cardID].reset_index(drop=True)
-        cardDeckList = list(set(cardDF["deckID"].to_list()))
-        cardAvgCount.append(round(np.mean(list(Counter(cardDF["deckID"]).values())),3))
-        cardDeckCount.append(len(cardDeckList))
-        cardImgSource.append(cardDF["imgSource"].iloc[0].replace("cards_small", "cards"))
-        cardName.append(df.loc[df["code"]==cardID, "name"].iloc[0])
-    df = pd.DataFrame({"code": cardIDList, "deckCount": cardDeckCount, "image": cardImgSource, "count": cardAvgCount})
-    df["% of decks"] = round(df["deckCount"] / totalDeckCount, 3)
-    df["name"] = cardName
-    df = df[["image", "name", "% of decks", "count"]].sort_values(["% of decks", "count", "name"], ascending=False).reset_index(drop=True)
-    return df
-"""
-
-#deckAnalysis(pd.read_csv("dataframes/SnakeEye/TCG_93 days_main_deck.csv", sep="|"))
 
 def createArchetypeTables():
     archetypes = os.listdir("E:\Various Programs\Coding Projects\YGO Decklist Analytics\dataframes")
