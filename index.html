@@ -19,13 +19,10 @@
             <a href="https://projectshuckle.github.io/">Project Shuckle</a>
         </div>
     </div>
-
 </header>
 
 <body>
-    <h1>
-        YGORec
-    </h1>
+    <img src="YGORecLogo.png" id="logo">
 
     <div id="inputContainer">
         <div id="archetypeContainer">
@@ -127,7 +124,7 @@
             </div>
 
             <div id="popTable">
-                <div id="popTableTCG"> <!---------------------------------------------------------------------------------------->
+                <div id="popTableTCG"> 
                     
                     <div id="popArchTCG" class="popArch">
                         <div id="popMainArchTCG" class="popMainArch">
@@ -174,7 +171,7 @@
                     </div>
                 </div>
                 
-                <div id="popTableOCG"> <!--------------------------------------------------------------------------------------->
+                <div id="popTableOCG"> 
                     
                     <div id="popArchOCG" class="popArch">
                         <div id="popMainArchOCG" class="popMainArch">
@@ -222,129 +219,27 @@
                 </div>
 
             </div>
-
+            <a style="text-align: center; padding-top: 10px; padding-bottom: 10px; font-size: 11px;">
+                *The second number indicates the change in card usage compared to the prior month.
+            </a>
 
         </div>
-
-<!--------------------------------------------------------------------------------------------------------->
-<!--    <div id="popContainer">
-            <div id="popTableTitles">
-                <h2 style="font-size: 20px; text-align: center; margin-bottom: 0px;">Most Popular</h2>
-                <h2 style="font-size: 14px; text-align: center; margin-top: 0px;">(1 Month)</h2>
-                <div style="display: flex; width: 800px;">
-                    <div style="width: 400px; text-align: center;  font-size: 20px;">
-                        TCG
-                    </div>
-                    <div style="width: 400px; text-align: center; font-size: 20px;">
-                        OCG
-                    </div>
-                </div>
-            </div>
-        
-            <div id="popTable">
-                <div id="popTableTCG">
-                    
-                    <div id="popArchTCG" class="popArch">
-                        <div id="popMainArchTCG" class="popMainArch">
-                            Main Archetypes<br>
-                            <table id="popMainArchTCGTable">
-                               
-                            </table>
-                        </div>
-                        <div id="popSubArchTCG" class="popSubArch">
-                            Sub Archetypes<br>
-                            <table id="popSubArchTCGTable">
-                               
-                            </table>
-                        </div>
-                    </div>
-        
-                    <div id="popCardsTCG" class="popCards">
-                        <div id="popMainCardsTCG" class="popMainCards">
-                            Main Deck Cards <br>
-                            <table id="popMainCardsTCGTable">
-               
-                            </table>
-                        </div>
-                        <div id="popSubCardsTCG" class="popSubCards">
-                            <div id="popSubExtraCardsTCG" class="popSubExtraCards">
-                                Extra Deck Cards <br>
-                                <table id="popSubExtraCardsTCGTable">
-                                    
-                                </table>
-                            </div>
-                            <div id="popSubSideCardsTCG" class="popSubSideCards">
-                               Side Deck Cards<br>
-                                <table id="popSubSideCardsTCGTable">
-                                
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="popTableOCG">
-                    
-                    <div id="popArchOCG" class="popArch">
-                        <div id="popMainArchOCG" class="popMainArch">
-                            Main Archetypes
-                            <table id="popMainArchOCGTable">
-        
-                            </table>
-                        </div>
-                        <div id="popSubArchOCG" class="popSubArch">
-                            Sub Archetypes
-                            <table id="popSubArchOCGTable">
-        
-                            </table>
-                        </div>
-                    </div>
-        
-                    <div id="popCardsOCG" class="popCards">
-                        <div id="popMainCardsOCG" class="popMainCards">
-                            Main Deck Cards
-                            <table id="popMainCardsOCGTable">
-                                
-                            </table>
-                        </div>
-                        <div id="popSubCardsOCG" class="popSubCards">
-                            <div id="popSubExtraCardsOCG" class="popSubExtraCards">
-                                Extra Deck Cards
-                                <table id="popSubExtraCardsOCGTable">
-        
-                                </table>
-                            </div>
-                            <div id="popSubSideCardsOCG" class="popSubSideCards">
-                                Side Deck Cards
-                                <table id="popSubSideCardsOCGTable">
-        
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-        
-        
-           </div>
-        
-        </div>
-        -->
-
     
     </div>
 
 
-    <!--overlay thing-->
+
     <div id="overlay" class="overlay" onclick="closeImage()">
         <img id="enlargedImage" class="enlargedImage" src="" alt="Enlarged Image">
     </div>
 </body>
 
 
-    <h2>[ Last Updated: 1-20-25 ]</h2>
+    <h2>[ Last Updated: 1-26-25 ]</h2>
 </html>
 
-<script>
-    /*------------------Deck Selection Script------------------*/
+<script> 
+    /*-----------------------------Tab Selection-----------------------------*/
     const mainTab = document.getElementById("mainTab");
     const extraTab = document.getElementById("extraTab");
     const sideTab = document.getElementById("sideTab");
@@ -355,7 +250,7 @@
     var extraContainer = document.getElementById("extraContainer");
     var sideContainer = document.getElementById("sideContainer");
     var infoContainer = document.getElementById("infoContainer");
-    var popContainer = document.getElementById("popContainer");    /*-----------------------------------------------------------------------------------*/
+    var popContainer = document.getElementById("popContainer");    
     var mainBox = document.getElementById("mainBox");
     var subBox = document.getElementById("subBox");
 
@@ -406,7 +301,7 @@
             popContainer.style.display = "none";
             extraContainer.style.display = "flex";
         }
-    })
+    });
 
     sideTab.addEventListener("click", function() {
         if (sideTab.classList.contains("deckTabs")) {
@@ -479,10 +374,7 @@
 
 
 
-</script>
-
-<script>
-    /*--------------------Input Script--------------------------*/
+   /*-----------------------------Search Input-----------------------------*/
     var archetypeSelect = document.getElementById("archetypeSelect");
     var formatSelect = document.getElementById("formatSelect");
     var timeSelect = document.getElementById("timeSelect");
@@ -492,7 +384,7 @@
     var currTime = document.getElementById("currTime");
 
 
-    /*--------------------Archetype Dropdown List--------------*/
+   /*-----------------------------Archetype Dropdown-----------------------------*/
     async function fetchArchetypes(url) {
         const response = await fetch(url);
         if (!response.ok) {
@@ -533,11 +425,7 @@
 
     initializeArchetypes();
 
-</script>
-
-<script>
-    /*-------------------Card Table Code-----------------------------------*/
-
+    /*-----------------------------Card Table Generation-----------------------------*/
     mainURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/tables/ABC/TCG_31%20days_main_deck.csv";
     extraURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/tables/ABC/TCG_31%20days_extra_deck.csv";
     sideURL = "https://raw.githubusercontent.com/gregknothe/YGO-Decklist-Analytics-v2/refs/heads/main/tables/ABC/TCG_31%20days_side_deck.csv";
@@ -566,7 +454,6 @@
     function displayCSV(data, container) {
         var rowCount = 0;
         data.forEach((row, index) => {
-            /*console.log(data.length);*/
             const cardCell = document.createElement("div");
             cardCell.className = "cell";
             
@@ -613,8 +500,7 @@
         });
     };
 
-/*--------------------------------------------Popular Tables---------------------------------------------------------*/
-
+    /*-----------------------------Popular Cards-----------------------------*/
     function displayPopularTables(data, table2) {
         var popTable = document.getElementById(table2);
         var rowCounter = 0;
@@ -761,7 +647,7 @@
         }
     });
 
-/* ---------------------------------------------------------------TEST AREA------------------------------------------------------------*/
+    /*-----------------------------Table Generation-----------------------------*/
     function displayDeckInfo(data) {
         var deckCount = document.getElementById("deckCount");
         var avgDeckSize = document.getElementById("avgDeckSize");
@@ -789,13 +675,10 @@
             rowCount = rowCount + 1;
         });
     };
-    /* figure out hwo the row loop works again, the rest should be simple */
-
 
     function displayArchTabs(data, container) {
         var rowCount = 0;
         data.forEach((row, index) => {
-            /*console.log(data.length);*/
             const archBox = document.createElement("div");
             archBox.className = "archBox";
             
@@ -815,17 +698,7 @@
                 }
                 col = col + 1;
             });         
-            /*
-            if (index != data.length - 1) {
-                cardInfo.appendChild(percent);
-                cardInfo.appendChild(count);
 
-                cardCell.appendChild(cardImg);
-                cardCell.appendChild(cardInfo);
-
-                container.appendChild(cardCell);
-
-            }*/
             if (index != data.length - 1) {
                 archBox.appendChild(archName);
                 archBox.appendChild(archCount);
@@ -835,8 +708,6 @@
             rowCount = rowCount + 1;
         });
     };
-
-/* ---------------------------------------------------------------------------------------------------------------*/
 
     async function removeCells() {
         document.getElementById("mainContainer").innerHTML = "";
@@ -912,10 +783,8 @@
         });
     }
 
-</script>
 
-<script>
-    // Function to open the enlarged image
+    /*------------------------Zoom Functionality---------------------------*/
     function enlargeImage(src) {
         const overlay = document.getElementById('overlay');
         const enlargedImage = document.getElementById('enlargedImage');
@@ -923,13 +792,11 @@
         overlay.classList.add('active');
     }
 
-    // Function to close the enlarged image
     function closeImage() {
         const overlay = document.getElementById('overlay');
         overlay.classList.remove('active');
     }
 
-    // Adding click event listeners to images with class 'cardImg'
     document.getElementById("mainContainer").addEventListener('click', function(event) {
         if (event.target && event.target.matches('.cardImg')) {
             console.log("clicked");
@@ -957,9 +824,8 @@
             enlargeImage(event.target.src);
         }
     });
-</script>
 
-<script>
+    /*-----------------------------------Changing File Paths-------------------------------*/
     var archetypeValue = archetypeSelect.value;
     var formatValue = formatSelect.value;
     var timeValue = timeSelect.value;
@@ -997,6 +863,3 @@
 
 </script>
 
-<script>
-
-</script>
