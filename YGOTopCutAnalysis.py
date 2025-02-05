@@ -159,7 +159,7 @@ def updateCardList(newURLListFile, cardListFile):
 def deckPartitioner():
     x = pd.read_csv("cardListFile.csv", delimiter="|")
     x["date"] = pd.to_datetime(x["date"])
-    mainArchetypeList = list(set(x["tag1"].to_list()+x['tag2'].to_list()+x["tag3"].to_list())),sort()
+    mainArchetypeList = list(set(x["tag1"].to_list()+x['tag2'].to_list()+x["tag3"].to_list()))
     today = datetime.datetime.today()
     num = 1
     print("Total Archetypes: " + str(len(mainArchetypeList)))
@@ -483,10 +483,10 @@ def popTable():
 #updateCardList("newURLList.csv", "cardListFile.csv")
 #updateBlankNames()
 
-#deckPartitioner()
-#createArchetypeTables()
+deckPartitioner()
+createArchetypeTables()
 
-#popTable()
+popTable()
 
 
 #x = pd.read_csv("E:\Various Programs\Coding Projects\YGO Decklist Analytics\dataframes\SnakeEye\TCG_93 days_extra_deck.csv", sep="|")
@@ -496,3 +496,13 @@ def popTable():
 
 #make it look better
 #function to add in name of missing name cards based on ID if they are added later (main data set)
+
+
+def updateData():
+    print("Gathering new URLs:")
+    updateURL(limit=300)
+    updateCardList("newURLList.csv", "cardListFile.csv")
+    updateBlankNames()
+    deckPartitioner()
+    createArchetypeTables()
+    popTable()
