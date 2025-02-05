@@ -236,7 +236,7 @@ def deckAnalysis(df):
     return df
 
 def createArchetypeTables():
-    archetypes = os.listdir("E:\Various Programs\Coding Projects\YGO Decklist Analytics\dataframes")
+    archetypes = os.listdir("E:\Various Programs\Coding Projects\YGO Decklist Analytics v2\dataframes")
     archetypes = [x for x in archetypes if x != 'nan']
     archetypes = [x for x in archetypes if "(sub)" not in x]
     with open('archetype.csv', 'w') as f:
@@ -483,7 +483,7 @@ def popTable():
 #updateCardList("newURLList.csv", "cardListFile.csv")
 #updateBlankNames()
 
-deckPartitioner()
+#deckPartitioner()
 createArchetypeTables()
 
 popTable()
@@ -506,3 +506,6 @@ def updateData():
     deckPartitioner()
     createArchetypeTables()
     popTable()
+    return
+
+#createArchetypeTables()
