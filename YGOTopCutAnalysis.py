@@ -484,9 +484,9 @@ def popTable():
 #updateBlankNames()
 
 #deckPartitioner()
-createArchetypeTables()
+#createArchetypeTables()
 
-popTable()
+#popTable()
 
 
 #x = pd.read_csv("E:\Various Programs\Coding Projects\YGO Decklist Analytics\dataframes\SnakeEye\TCG_93 days_extra_deck.csv", sep="|")
@@ -499,13 +499,21 @@ popTable()
 
 
 def updateData():
-    print("Gathering new URLs:")
+    currTime = datetime.datetime.now()
+    print("<--------------------- Gathering URLs --------------------->")
     updateURL(limit=300)
+    print("<--------------------- Updating Card List --------------------->")
     updateCardList("newURLList.csv", "cardListFile.csv")
+    print("<--------------------- Updating Blank Names --------------------->")
     updateBlankNames()
+    print("<--------------------- Partitioning Decks --------------------->")
     deckPartitioner()
+    print("<--------------------- Creating Arch Tables --------------------->")
     createArchetypeTables()
+    print("<--------------------- Creating Pop Tables --------------------->")
     popTable()
+    print(datetime.datetime.now() - currTime)
     return
 
-#createArchetypeTables()
+
+updateData()

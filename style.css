@@ -288,7 +288,7 @@ header a{
     display: flex;
     align-items: center;
     font-size: 13;
-    margin-top: 16px;
+    margin-top: 8px;
 }
 
 #rightInfo {
@@ -315,7 +315,7 @@ header a{
 .infoBox {
     background-color: rgb(17, 17, 17);
     width: 95%;
-    height: 60px;
+    height: 52px;
     display: flex;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 14;
