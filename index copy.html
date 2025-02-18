@@ -1,5 +1,5 @@
 <html>
-<link rel="stylesheet" href="style.css"> 
+<link rel="stylesheet" href="style copy.css"> 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -70,11 +70,11 @@
     <br>
 
     <div id="deckContainer"> 
-        <button class="deckTabs" id="mainTab">Main Deck</button>
-        <button class="deckTabs" id="extraTab">Extra Deck</button>
-        <button class="deckTabs" id="sideTab">Side Deck</button>
+        <button class="deckTabs" id="mainTab">Main</button>
+        <button class="deckTabs" id="extraTab">Extra</button>
+        <button class="deckTabs" id="sideTab">Side</button>
 
-        <button class="deckTabsActive" id="popTab" style="width: 95px;; margin-left: 445px; margin-right: 0px;">Most Popular</button>
+        <button class="deckTabsActive" id="popTab" style="width: 95px; margin-left: 64%;">Popular</button>
     </div>
 
     <div id="cardContainer">
@@ -133,11 +133,11 @@
             <div id="popTableTitles">
                 <h2 style="font-size: 20px; text-align: center; margin-bottom: 0px;">Most Popular</h2>
                 <h2 style="font-size: 14px; text-align: center; margin-top: 0px;">(1 Month)</h2>
-                <div style="display: flex; width: 800px;">
-                    <div style="width: 400px; text-align: center;  font-size: 20px;">
+                <div style="display: flex; width: 100%; max-width: 800px;">
+                    <div style="max-width: 400px; width: 50%; text-align: center;  font-size: 20px;">
                         TCG
                     </div>
-                    <div style="width: 400px; text-align: center; font-size: 20px;">
+                    <div style="max-width: 400px; width: 50%; text-align: center; font-size: 20px;">
                         OCG
                     </div>
                 </div>
@@ -148,7 +148,7 @@
                     
                     <div id="popArchTCG" class="popArch">
                         <div id="popMainArchTCG" class="popMainArch">
-                            Top Archetypes<br>
+                            Archetypes<br>
                             <div class="popArchBackgrounds">
                                 <table id="popMainArchTCGTable">
                                 
@@ -156,7 +156,7 @@
                             </div>
                         </div>
                         <div id="popSubArchTCG" class="popSubArch">
-                            Top Sub Engines<br>
+                            Sub Engines<br>
                             <div class="popArchBackgrounds">
                                 <table id="popSubArchTCGTable">
                                 
@@ -169,7 +169,7 @@
                     Top 50 Main Deck
                     <div class="popScrollTable">
                         
-                        <table id="popMainCardsTCGTable" style="width: 340px;">
+                        <table id="popMainCardsTCGTable">
 
                         </table>
                     </div>
@@ -177,7 +177,7 @@
                     <br>
                     Top 30 Extra Deck
                     <div class="popScrollTable">
-                        <table id="popSubExtraCardsTCGTable" style="width: 340px;">
+                        <table id="popSubExtraCardsTCGTable">
 
                         </table>
                     </div>
@@ -185,7 +185,7 @@
                     <br>
                     Top 30 Side deck
                     <div class="popScrollTable">
-                        <table id="popSubSideCardsTCGTable" style="width: 340px;">
+                        <table id="popSubSideCardsTCGTable">
 
                         </table>
                     </div>
@@ -195,7 +195,7 @@
                     
                     <div id="popArchOCG" class="popArch">
                         <div id="popMainArchOCG" class="popMainArch">
-                            Top Archetypes
+                            Archetypes
                             <div class="popArchBackgrounds">
                                 <table id="popMainArchOCGTable">
             
@@ -203,7 +203,7 @@
                             </div>
                         </div>
                         <div id="popSubArchOCG" class="popSubArch">
-                            Top Sub Engines
+                            Sub Engines
                             <div class="popArchBackgrounds">
                                 <table id="popSubArchOCGTable">
             
@@ -216,7 +216,7 @@
                     Top 50 Main Deck
                     <div class="popScrollTable">
                         
-                        <table id="popMainCardsOCGTable" style="width: 340px;">
+                        <table id="popMainCardsOCGTable">
 
                         </table>
                     </div>
@@ -224,7 +224,7 @@
                     <br>
                     Top 30 Extra Deck
                     <div class="popScrollTable">
-                        <table id="popSubExtraCardsOCGTable" style="width: 340px;">
+                        <table id="popSubExtraCardsOCGTable">
 
                         </table>
                     </div>
@@ -232,7 +232,7 @@
                     <br>
                     Top 30 Side deck
                     <div class="popScrollTable">
-                        <table id="popSubSideCardsOCGTable" style="width: 340px;">
+                        <table id="popSubSideCardsOCGTable">
                             
                         </table>
                     </div>
@@ -506,17 +506,17 @@
                 var td = document.createElement("td");
                 if (counter == 0) {
                     td.innerHTML = '<img src="' + cell + '" class="popTableImg">';
-                    td.style = "width: 25px;";
+                    td.style = "max-width: 25px; width: 10%;";
                     tr.appendChild(td);
                 }
                 else if (counter == 1) {
                     td.innerHTML = cell;
-                    td.style = "text-align: left; padding-left: 5px;";
+                    td.style = "text-align: left; padding-left: 5px; max-width: 200px; width: 68%;";
                     tr.appendChild(td);
                 }
                 else if (counter == 2) {
                     td.innerHTML = cell;
-                    td.style = "width: 35px;";
+                    td.style = "max-width: 35px; width: 12%;";
                     tr.appendChild(td);
                 }
                 else if (counter == 3) {
@@ -528,7 +528,7 @@
                     else {
                         td.className = "popTableRed";
                     }
-                    td.style = "width: 35px;";
+                    td.style = "max-width: 35px; width: 12%;";
                     tr.appendChild(td);
                 }
                 counter = counter + 1;
@@ -553,10 +553,12 @@
                 var td = document.createElement("td");
                 if (counter == 0) {
                     td.innerHTML = cell;
+                    td.style = "max-width: 50px; width: 70%; height: 5px;";
                     tr.appendChild(td);
                 }
                 else if (counter == 1) {
                     td.innerHTML = cell;
+                    td.style = "max-width: 80px; width: 30%;";
                     tr.appendChild(td);
                 }
                 counter = counter + 1;
