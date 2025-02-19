@@ -1,16 +1,16 @@
 
 
 html {
-    background-color: rgb(19, 19, 19);
+    background-color: rgba(19, 19, 19);
     color: white;
     overflow-y:scroll;
-    scrollbar-color: rgb(36, 36, 36) rgb(7, 7, 7);
+    scrollbar-color: rgba(36, 36, 36) rgba(7, 7, 7);
 }
 
 h1 {
     font-family: 'Courier New', Courier, monospace;
-    color: rgb(255, 255, 255);
-    text-shadow: 1px 1px 1px rgb(202, 0, 34);
+    color: rgba(255, 255, 255);
+    text-shadow: 1px 1px 1px rgba(202, 0, 34);
 }
 
 h2 {
@@ -50,7 +50,7 @@ header a{
 }
 
 .dropdownMenu {
-    background-color: rgba(0,0,0,0);
+    background-color: rgbaa(0,0,0,0);
     border: none;
     width: 40px;
 }
@@ -64,16 +64,16 @@ header a{
 }
 
 .dropdownContent a {
-    color: rgb(255, 255, 255);
+    color: rgba(255, 255, 255);
     padding: 12 16;
     text-decoration: none;
     display: block;
     font-size: 12px;
-    background-color: rgb(32, 32, 32);
+    background-color: rgba(32, 32, 32);
 }
 
 .dropdownContent a:hover {
-    background-color: rgb(76, 77, 77);
+    background-color: rgba(76, 77, 77);
 }
 
 .dropdown:hover .dropdownContent {
@@ -81,12 +81,12 @@ header a{
 }
 
 .dropdown:hover .dropdownMenu {
-    background-color: rgb(32, 32, 32);
+    background-color: rgba(32, 32, 32);
 }
 
 /*---------------------Containers-----------------------*/
 #deckContainer {
-    /*background-color: rgba(255, 0, 0, 0.247);*/
+    /*background-color: rgbaa(255, 0, 0, 0.247);*/
     max-width: 800;
     width: 95%;
     display: flex;
@@ -95,7 +95,7 @@ header a{
 }
 
 #cardContainer {
-    background-color: rgb(32, 32, 32);
+    background-color: rgba(32, 32, 32);
     max-width: 800px;
     width: 95%;
     padding-top: 5px;
@@ -139,7 +139,7 @@ header a{
 }
 
 .inputSelect {
-    background-color: rgb(76, 77, 77);
+    background-color: rgba(76, 77, 77);
     color: white;
     width: 80px;
 }
@@ -165,8 +165,8 @@ header a{
 }
 
 button {
-    background-color: rgb(76, 77, 77);
-    border: solid 1px rgb(141, 140, 140);
+    background-color: rgba(76, 77, 77);
+    border: solid 1px rgba(141, 140, 140);
     color: white;
     margin-top: -9px;
     max-width: 310px;
@@ -177,10 +177,10 @@ button {
 
 
 #siteData {
-    /*background-color: rgb(76, 77, 77);*/
-    /*background-color: rgb(51, 51, 51);;*/
-    /*border: solid 1px rgb(141, 140, 140);*/
-    /*border: solid 1px rgb(17, 17, 17);*/
+    /*background-color: rgba(76, 77, 77);*/
+    /*background-color: rgba(51, 51, 51);;*/
+    /*border: solid 1px rgba(141, 140, 140);*/
+    /*border: solid 1px rgba(17, 17, 17);*/
     font-size: 12px;
     width: 190px;
     height: 28px;
@@ -189,9 +189,9 @@ button {
 
 /*---------------------decks-----------------------*/
 .deckTabs {
-    background-color: rgb(76, 77, 77);
+    background-color: rgba(76, 77, 77);
     color: white;
-    border: 1px rgb(76, 77, 77);
+    border: 1px rgba(76, 77, 77);
     margin-right: 4px;
     width: 83px;
     height: 20px;
@@ -199,8 +199,8 @@ button {
 }
 
 .deckTabsActive {
-    background-color: rgb(32, 32, 32);
-    border: 1px solid rgb(32, 32, 32);
+    background-color: rgba(32, 32, 32);
+    border: 1px solid rgba(32, 32, 32);
     border-bottom: 0px;
     color: white;
     margin-right: 4px;
@@ -235,7 +235,7 @@ button {
 }
 
 #infoContainer {
-    background-color: rgb(32, 32, 32);
+    background-color: rgba(32, 32, 32);
     display: none;
 }
 
@@ -245,7 +245,7 @@ button {
 }
 
 .cell {
-    /*background-color:rgb(82, 82, 82);*/
+    /*background-color:rgba(82, 82, 82);*/
     width: 100px;
     display: flex;
     flex-direction: column;
@@ -256,7 +256,7 @@ button {
     margin-left: 6px;
     margin-bottom: 4px;
     margin-top: 4px;
-    box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.664);
+    box-shadow: 2px 2px 1px rgbaa(0, 0, 0, 0.664);
 }
 
 .cardImg {
@@ -295,7 +295,7 @@ button {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgbaa(0, 0, 0, 0.7);
     display: none;
     justify-content: center;
     align-items: center;
@@ -348,7 +348,7 @@ button {
 }
 
 .infoBox {
-    background-color: rgb(17, 17, 17);
+    background-color: rgba(17, 17, 17);
     width: 95%;
     height: 52px;
     display: flex;
@@ -369,7 +369,7 @@ button {
 }
 
 .archName {
-    background-color: rgb(34, 34, 34);
+    background-color: rgba(34, 34, 34);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -445,7 +445,7 @@ button {
 } 
 
 td {
-    background-color: rgb(51, 51, 51);
+    background-color: rgba(51, 51, 51);
     font-size: 12;
     text-align: center;
 }
@@ -453,7 +453,7 @@ td {
 /* 556 */
 
 .popScrollTable {
-    background-color: rgb(17, 17, 17);
+    background-color: rgba(17, 17, 17);
     max-width: 350px;
     width: 100%;
     height: 300px;
@@ -480,7 +480,7 @@ td {
 }
 
 .popArchBackgrounds {
-    background-color: rgb(17, 17, 17);
+    background-color: rgba(17, 17, 17);
 }
 
 table {
