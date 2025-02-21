@@ -1,0 +1,489 @@
+
+
+html {
+    background-color: rgba(19, 19, 19);
+    color: white;
+    overflow-y:scroll;
+    scrollbar-color: rgba(36, 36, 36) rgba(7, 7, 7);
+}
+
+h1 {
+    font-family: 'Courier New', Courier, monospace;
+    color: rgba(255, 255, 255);
+    text-shadow: 1px 1px 1px rgba(202, 0, 34);
+}
+
+h2 {
+    font-size: 12px;
+}
+
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/*-----------Nav Bar-------------*/
+header {
+    /*background-color: green;*/
+    margin: 0;
+    padding-top: 2;
+    position: fixed;
+    top: 0;
+    height: 20px;
+    width: 100%;
+    text-align: right;
+}
+
+header a{
+    text-decoration: none;
+    color: white;
+    padding-right: 6px;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdownMenu {
+    background-color: rgbaa(0,0,0,0);
+    border: none;
+    width: 40px;
+}
+
+.dropdownContent {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    right: 0;
+    width: 150px;
+}
+
+.dropdownContent a {
+    color: rgba(255, 255, 255);
+    padding: 12 16;
+    text-decoration: none;
+    display: block;
+    font-size: 12px;
+    background-color: rgba(32, 32, 32);
+}
+
+.dropdownContent a:hover {
+    background-color: rgba(76, 77, 77);
+}
+
+.dropdown:hover .dropdownContent {
+    display: block;
+}
+
+.dropdown:hover .dropdownMenu {
+    background-color: rgba(32, 32, 32);
+}
+
+/*---------------------Containers-----------------------*/
+#deckContainer {
+    /*background-color: rgbaa(255, 0, 0, 0.247);*/
+    max-width: 800;
+    width: 95%;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
+#cardContainer {
+    background-color: rgba(32, 32, 32);
+    max-width: 800px;
+    width: 95%;
+    padding-top: 5px;
+    /*display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;*/
+}
+
+/*---------------------Top Section-----------------------*/
+#top {
+    display: flex;
+    max-width: 800px;
+    width: 100%;
+    padding-top: 20px;
+}
+
+#topRight {
+    width: 80%;
+    padding-left: 150px;
+}
+
+#topLeft {
+    width: 10%;
+}
+
+#logo {
+    width: 190px;
+    padding-right: 10px;
+    min-width: 100px;
+    padding-top: 15;
+}
+
+#inputContainer {
+    max-width: 306px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    padding: 3px;
+}
+
+.inputSelect {
+    background-color: rgba(76, 77, 77);
+    color: white;
+    width: 80px;
+}
+
+#archetypeSelect {
+    width: 100%;
+    max-width: 130px;
+}
+
+#archetypeContainer, #formatContainer {
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px;
+}
+
+#timeContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.searchLabel {
+    font-size: 15;
+}
+
+button {
+    background-color: rgba(76, 77, 77);
+    border: solid 1px rgba(141, 140, 140);
+    color: white;
+    margin-top: -9px;
+    max-width: 310px;
+    width: 100%;
+    margin-left: 1px;
+}
+
+
+
+#siteData {
+    /*background-color: rgba(76, 77, 77);*/
+    /*background-color: rgba(51, 51, 51);;*/
+    /*border: solid 1px rgba(141, 140, 140);*/
+    /*border: solid 1px rgba(17, 17, 17);*/
+    font-size: 12px;
+    width: 190px;
+    height: 28px;
+    margin-top: 30px;
+}
+
+/*---------------------decks-----------------------*/
+.deckTabs {
+    background-color: rgba(76, 77, 77);
+    color: white;
+    border: 1px rgba(76, 77, 77);
+    margin-right: 4px;
+    width: 83px;
+    height: 20px;
+    font-size: 12;
+}
+
+.deckTabsActive {
+    background-color: rgba(32, 32, 32);
+    border: 1px solid rgba(32, 32, 32);
+    border-bottom: 0px;
+    color: white;
+    margin-right: 4px;
+    width: 83px;
+    height: 20px;
+    font-size: 12;
+}
+
+/*---------------------cards-----------------------*/
+#mainContainer {
+    max-width: 800px;
+    width: 100%;
+    display: none;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#extraContainer {
+    max-width: 800px;
+    width: 100%;
+    display: none;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#sideContainer {
+    max-width: 800px;
+    width: 100%;
+    display: none;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#infoContainer {
+    background-color: rgba(32, 32, 32);
+    display: none;
+}
+
+#popContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.cell {
+    /*background-color:rgba(82, 82, 82);*/
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    font-size: 13;
+    margin-right: 6px;
+    margin-left: 6px;
+    margin-bottom: 4px;
+    margin-top: 4px;
+    box-shadow: 2px 2px 1px rgbaa(0, 0, 0, 0.664);
+}
+
+.cardImg {
+    background-color: green;
+    width: 100px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.cardInfo {
+    display: flex;
+    padding: 3px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.percent, .count {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.percent {
+    width: 60px;
+}
+
+.count {
+    width: 40px;
+}
+
+/*-------------------------------------------------*/
+
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgbaa(0, 0, 0, 0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+/* Styling for the enlarged image */
+.enlargedImage {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+}
+
+/* Add this to ensure the enlarged image stays on top */
+.overlay.active {
+    display: flex;
+}
+
+/*more info section */
+#leftInfo {
+    /*padding-top: 10px;*/
+    padding-bottom: 10px;
+    /*background-color: green;*/
+    width: 25%;
+    display: flex;
+    align-items: center;
+    font-size: 13;
+    margin-top: 8px;
+}
+
+#rightInfo {
+    /*padding-top: 10px;*/
+    padding-bottom: 10px;
+    /*background-color: blue;*/
+    width: 75%;
+    font-size: 13;
+    display: flex;
+}
+
+#deckInfo {
+    width: 100%;
+    text-align: right;
+    margin-right: 10%;
+}
+
+#deckValues {
+    width: 30%;
+    text-align: center;
+    margin-right: 20%;
+}
+
+.infoBox {
+    background-color: rgba(17, 17, 17);
+    width: 95%;
+    height: 52px;
+    display: flex;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14;
+    flex-wrap: wrap;
+    overflow: scroll;
+    overflow-x: hidden;
+    align-content: flex-start;
+}
+
+.archBox {
+    display: flex;
+    background-color: green;
+    height: 15px;
+    margin: 4px;
+    margin-bottom: 0px;
+}
+
+.archName {
+    background-color: rgba(34, 34, 34);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 4px;
+    padding-right: 4px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11;
+}
+
+.archCount {
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 4px;
+    padding-right: 4px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11;
+    
+}
+
+.infoBoxSlab {
+    width: 50%;
+    /*background-color: red;*/
+}
+
+/*------------------------------Pop Tables------------------------------*/
+
+
+#popTable {
+    /*background-color: green;*/
+    display: flex;
+    width: 100%;
+}
+
+#popTableTCG, #popTableOCG {
+    /*background-color: red;*/
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+.popArch {
+    display: flex;
+    /*background-color: yellow;*/
+    padding-bottom: 20px;
+    width: 100%;
+    max-width: 400px;
+    justify-content: center;
+}
+
+.popMainArch, .popSubArch, .popMainCards, .popSubCards {
+    /*background-color: red;*/
+    text-align: center;
+    width: 100%;
+    margin-right: 10px;
+    margin-left: 10px;
+    font-size: 14px;
+}
+
+
+.popMainArchOCGTable, .popMainArchTCGTable, .popSubArchOCGTable, .popSubArchTCGTable {
+    width: 100%;
+
+}
+
+.popMainCardsOCGTable, .popSubExtraCardsOCGTable, .popSubSideCardsOCGTable, .popMainCardsTCGTable, .popSubExtraCardsTCGTable, .popSubSideCardsTCGTable {
+    width: 340px;
+    
+} 
+
+td {
+    background-color: rgba(51, 51, 51);
+    font-size: 12;
+    text-align: center;
+}
+
+/* 556 */
+
+.popScrollTable {
+    background-color: rgba(17, 17, 17);
+    max-width: 350px;
+    width: 100%;
+    height: 300px;
+    display: flex;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14;
+    flex-wrap: wrap;
+    overflow: scroll;
+    overflow-x: hidden;
+    align-content: flex-start;
+}
+
+.popTableImg {
+    max-width: 25px;
+    width: 100%;
+}
+
+.popTableGreen {
+    color: green;
+}
+
+.popTableRed {
+    color: red;
+}
+
+.popArchBackgrounds {
+    background-color: rgba(17, 17, 17);
+}
+
+table {
+    width: 100%;
+}
+

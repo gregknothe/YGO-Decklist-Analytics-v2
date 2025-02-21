@@ -423,8 +423,8 @@ def popArchCalc(formats, startDate, endDate):
     subCount = pd.DataFrame({"name": subCount.index, "perc": subCount.values})
     subCount["perc"] = round(subCount["perc"] / deckCount, 2)   
 
-    mainCount.sort_values(by="perc", ascending=False).head(10).to_csv("popList/main_" + formats + "_arch.csv", sep="|", header=False, index=False)
-    subCount.sort_values(by="perc", ascending=False).head(10).to_csv("popList/sub_" + formats + "_arch.csv", sep="|", header=False, index=False)
+    mainCount.sort_values(by="perc", ascending=False).head(20).to_csv("popList/main_" + formats + "_arch.csv", sep="|", header=False, index=False)
+    subCount.sort_values(by="perc", ascending=False).head(20).to_csv("popList/sub_" + formats + "_arch.csv", sep="|", header=False, index=False)
 
     return
 
