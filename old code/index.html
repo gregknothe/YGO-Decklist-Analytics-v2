@@ -1,5 +1,5 @@
 <html>
-<link rel="stylesheet" href="style copy.css"> 
+<link rel="stylesheet" href="style.css"> 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -22,62 +22,61 @@
 </header>
 
 <body>
-    <div id="top">
-        <div id="topLeft">
-            <img src="YGORecLogo.png" id="logo">
+    <img src="YGORecLogo.png" id="logo">
+
+    <div id="inputContainer">
+        <div id="archetypeContainer">
+            <div class="searchLabel">Archetype</div>
+            <select id="archetypeSelect" class="inputSelect">
+            </select>
         </div>
 
-        <div id="topRight">
-            <div id="inputContainer">
-                <div id="archetypeContainer">
-                    <div class="searchLabel">Archetype</div>
-                    <select id="archetypeSelect" class="inputSelect">
-                    </select>
-                </div>
-
-                <div id="formatContainer">
-                    <div class="searchLabel">Format</div>
-                    <select id="formatSelect" class="inputSelect">
-                        <option>TCG</option>
-                        <option>OCG</option>
-                    </select>
-                </div>
-
-                <div id="timeContainer">
-                    <div class="searchLabel">Time</div>
-                    <select id="timeSelect" class="inputSelect">
-                        <option value="31">1 Month</option>
-                        <option value="93">3 Months</option>
-                        <option value="186">6 Months</option>
-                        <option value="365">1 Year</option>
-                        <option value="100000">All Time</option>
-                    </select>
-                </div>
-            </div>
-
-            <button class="searchButton" onclick="runCode()">Search</button>
+        <div id="formatContainer">
+            <div class="searchLabel">Format</div>
+            <select id="formatSelect" class="inputSelect">
+                <option>TCG</option>
+                <option>OCG</option>
+            </select>
         </div>
-        
-  
-        <div id="siteData">
-            Last Updated: <a id="lastUpdate">12/25/24</a> <br>
-            Total Decks: <a id="totalDeckCount">1234256</a> <br>
+
+        <div id="timeContainer">
+            <div class="searchLabel">Time</div>
+            <select id="timeSelect" class="inputSelect">
+                <option value="31">1 Month</option>
+                <option value="93">3 Months</option>
+                <option value="186">6 Months</option>
+                <option value="365">1 Year</option>
+                <option value="100000">All Time</option>
+            </select>
         </div>
 
     </div>
+
+    <button class="searchButton" onclick="runCode()">Search</button>
 
     <br>
     <br>
 
     <div id="deckContainer"> 
-        <button class="deckTabs" id="mainTab">Main</button>
-        <button class="deckTabs" id="extraTab">Extra</button>
-        <button class="deckTabs" id="sideTab">Side</button>
-
-        <button class="deckTabsActive" id="popTab" style="width: 95px; margin-left: 64%;">Popular</button>
+        <button class="deckTabs" id="mainTab">Main Deck</button>
+        <button class="deckTabs" id="extraTab">Extra Deck</button>
+        <button class="deckTabs" id="sideTab">Side Deck</button>
+        <button class="deckTabs" id="infoTab">More Info</button>
+        <button class="deckTabsActive" id="popTab" style="width: 95px;; margin-left: 370px; margin-right: 0px;">Most Popular</button>
     </div>
 
     <div id="cardContainer">
+        <div id="mainContainer" class="cardPanel">
+            
+        </div>
+
+        <div id="extraContainer" class="cardPanel">
+            
+        </div>
+
+        <div id="sideContainer" class="cardPanel">
+            
+        </div>
 
         <div id="infoContainer" class="cardPanel">
             <div id="leftInfo">
@@ -96,48 +95,29 @@
             </div>
 
             <div id="rightInfo">
-                <div class="infoBoxSlab">
-                    <div class="infoBoxLabel">
-                        common sub engines:
-                    </div>
-                    <div class="infoBox" id="mainBox">
-
-                    </div>
+                <div class="infoBoxLabel">
+                    common sub engines:
                 </div>
-                <div class="infoBoxSlab">
-                    <div class="infoBoxLabel">
-                        common sub engine for:
-                    </div>
-                    <div class="infoBox" id="subBox">
+                <div class="infoBox" id="mainBox">
+                </div>
+                <div class="infoBoxLabel">
+                    common sub engine for:
+                </div>
+                <div class="infoBox" id="subBox">
 
-                    </div>
                 </div>
             </div>
-            
         </div>
-
-        <div id="mainContainer" class="cardPanel">
-            
-        </div>
-
-        <div id="extraContainer" class="cardPanel">
-            
-        </div>
-
-        <div id="sideContainer" class="cardPanel">
-            
-        </div>
-
 
         <div id="popContainer">
             <div id="popTableTitles">
                 <h2 style="font-size: 20px; text-align: center; margin-bottom: 0px;">Most Popular</h2>
                 <h2 style="font-size: 14px; text-align: center; margin-top: 0px;">(1 Month)</h2>
-                <div style="display: flex; width: 100%; max-width: 800px;">
-                    <div style="max-width: 400px; width: 50%; text-align: center;  font-size: 20px;">
+                <div style="display: flex; width: 800px;">
+                    <div style="width: 400px; text-align: center;  font-size: 20px;">
                         TCG
                     </div>
-                    <div style="max-width: 400px; width: 50%; text-align: center; font-size: 20px;">
+                    <div style="width: 400px; text-align: center; font-size: 20px;">
                         OCG
                     </div>
                 </div>
@@ -148,16 +128,16 @@
                     
                     <div id="popArchTCG" class="popArch">
                         <div id="popMainArchTCG" class="popMainArch">
-                            Archetypes<br>
-                            <div class="popScrollTable" style="height: 150px;">
+                            Top Archetypes<br>
+                            <div class="popArchBackgrounds">
                                 <table id="popMainArchTCGTable">
                                 
                                 </table>
                             </div>
                         </div>
                         <div id="popSubArchTCG" class="popSubArch">
-                            Sub Engines<br>
-                            <div class="popScrollTable" style="height: 150px;">
+                            Top Sub Engines<br>
+                            <div class="popArchBackgrounds">
                                 <table id="popSubArchTCGTable">
                                 
                                 </table>
@@ -169,7 +149,7 @@
                     Top 50 Main Deck
                     <div class="popScrollTable">
                         
-                        <table id="popMainCardsTCGTable">
+                        <table id="popMainCardsTCGTable" style="width: 340px;">
 
                         </table>
                     </div>
@@ -177,7 +157,7 @@
                     <br>
                     Top 30 Extra Deck
                     <div class="popScrollTable">
-                        <table id="popSubExtraCardsTCGTable">
+                        <table id="popSubExtraCardsTCGTable" style="width: 340px;">
 
                         </table>
                     </div>
@@ -185,7 +165,7 @@
                     <br>
                     Top 30 Side deck
                     <div class="popScrollTable">
-                        <table id="popSubSideCardsTCGTable">
+                        <table id="popSubSideCardsTCGTable" style="width: 340px;">
 
                         </table>
                     </div>
@@ -195,16 +175,16 @@
                     
                     <div id="popArchOCG" class="popArch">
                         <div id="popMainArchOCG" class="popMainArch">
-                            Archetypes
-                            <div class="popScrollTable" style="height: 150px;">
+                            Top Archetypes
+                            <div class="popArchBackgrounds">
                                 <table id="popMainArchOCGTable">
             
                                 </table>
                             </div>
                         </div>
                         <div id="popSubArchOCG" class="popSubArch">
-                            Sub Engines
-                            <div class="popScrollTable" style="height: 150px;">
+                            Top Sub Engines
+                            <div class="popArchBackgrounds">
                                 <table id="popSubArchOCGTable">
             
                                 </table>
@@ -216,7 +196,7 @@
                     Top 50 Main Deck
                     <div class="popScrollTable">
                         
-                        <table id="popMainCardsOCGTable">
+                        <table id="popMainCardsOCGTable" style="width: 340px;">
 
                         </table>
                     </div>
@@ -224,7 +204,7 @@
                     <br>
                     Top 30 Extra Deck
                     <div class="popScrollTable">
-                        <table id="popSubExtraCardsOCGTable">
+                        <table id="popSubExtraCardsOCGTable" style="width: 340px;">
 
                         </table>
                     </div>
@@ -232,7 +212,7 @@
                     <br>
                     Top 30 Side deck
                     <div class="popScrollTable">
-                        <table id="popSubSideCardsOCGTable">
+                        <table id="popSubSideCardsOCGTable" style="width: 340px;">
                             
                         </table>
                     </div>
@@ -263,7 +243,7 @@
     const mainTab = document.getElementById("mainTab");
     const extraTab = document.getElementById("extraTab");
     const sideTab = document.getElementById("sideTab");
-
+    const infoTab = document.getElementById("infoTab");
     const popTab = document.getElementById("popTab");
 
     var mainContainer = document.getElementById("mainContainer");
@@ -284,7 +264,8 @@
             extraTab.classList.add("deckTabs");
             sideTab.classList.remove("deckTabsActive");
             sideTab.classList.add("deckTabs");
-
+            infoTab.classList.remove("deckTabsActive");
+            infoTab.classList.add("deckTabs");
             popTab.classList.remove("deckTabsActive");
             popTab.classList.add("deckTabs");
 
@@ -292,7 +273,7 @@
 
             extraContainer.style.display = "none";
             sideContainer.style.display = "none";
-            infoContainer.style.display = "flex";
+            infoContainer.style.display = "none";
             popContainer.style.display = "none";
             mainContainer.style.display = "flex";
             
@@ -307,7 +288,8 @@
             sideTab.classList.add("deckTabs");
             mainTab.classList.remove("deckTabsActive");
             mainTab.classList.add("deckTabs");
-
+            infoTab.classList.remove("deckTabsActive");
+            infoTab.classList.add("deckTabs");
             popTab.classList.remove("deckTabsActive");
             popTab.classList.add("deckTabs");
 
@@ -315,7 +297,7 @@
 
             mainContainer.style.display = "none";
             sideContainer.style.display = "none";
-            infoContainer.style.display = "flex";
+            infoContainer.style.display = "none";
             popContainer.style.display = "none";
             extraContainer.style.display = "flex";
         }
@@ -329,7 +311,8 @@
             extraTab.classList.add("deckTabs");
             mainTab.classList.remove("deckTabsActive");
             mainTab.classList.add("deckTabs");
-
+            infoTab.classList.remove("deckTabsActive");
+            infoTab.classList.add("deckTabs");
             popTab.classList.remove("deckTabsActive");
             popTab.classList.add("deckTabs");
 
@@ -337,13 +320,34 @@
 
             extraContainer.style.display = "none";
             mainContainer.style.display = "none";
-            infoContainer.style.display = "flex";
+            infoContainer.style.display = "none";
             popContainer.style.display = "none";
             sideContainer.style.display = "flex";
         }
     })
 
+    infoTab.addEventListener("click", function() {
+        if (infoTab.classList.contains("deckTabs")) {
+            infoTab.classList.remove("deckTabs");
+            
+            extraTab.classList.remove("deckTabsActive");
+            extraTab.classList.add("deckTabs");
+            mainTab.classList.remove("deckTabsActive");
+            mainTab.classList.add("deckTabs");
+            sideTab.classList.remove("deckTabsActive");
+            sideTab.classList.add("deckTabs");
+            popTab.classList.remove("deckTabsActive");
+            popTab.classList.add("deckTabs");
 
+            infoTab.classList.add("deckTabsActive");
+
+            extraContainer.style.display = "none";
+            sideContainer.style.display = "none";
+            mainContainer.style.display = "none";
+            popContainer.style.display = "none";
+            infoContainer.style.display = "flex";
+        }
+    })
 
     popTab.addEventListener("click", function() {
         if (popTab.classList.contains("deckTabs")) {
@@ -355,7 +359,8 @@
             mainTab.classList.add("deckTabs");
             sideTab.classList.remove("deckTabsActive");
             sideTab.classList.add("deckTabs");
-
+            infoTab.classList.remove("deckTabsActive");
+            infoTab.classList.add("deckTabs");
 
             popTab.classList.add("deckTabsActive");
 
@@ -506,17 +511,17 @@
                 var td = document.createElement("td");
                 if (counter == 0) {
                     td.innerHTML = '<img src="' + cell + '" class="popTableImg">';
-                    td.style = "max-width: 25px; width: 10%;";
+                    td.style = "width: 25px;";
                     tr.appendChild(td);
                 }
                 else if (counter == 1) {
                     td.innerHTML = cell;
-                    td.style = "text-align: left; padding-left: 5px; max-width: 200px; width: 68%;";
+                    td.style = "text-align: left; padding-left: 5px;";
                     tr.appendChild(td);
                 }
                 else if (counter == 2) {
                     td.innerHTML = cell;
-                    td.style = "max-width: 35px; width: 12%;";
+                    td.style = "width: 35px;";
                     tr.appendChild(td);
                 }
                 else if (counter == 3) {
@@ -528,7 +533,7 @@
                     else {
                         td.className = "popTableRed";
                     }
-                    td.style = "max-width: 35px; width: 12%;";
+                    td.style = "width: 35px;";
                     tr.appendChild(td);
                 }
                 counter = counter + 1;
@@ -553,12 +558,10 @@
                 var td = document.createElement("td");
                 if (counter == 0) {
                     td.innerHTML = cell;
-                    td.style = "max-width: 50px; width: 70%; height: 5px;";
                     tr.appendChild(td);
                 }
                 else if (counter == 1) {
                     td.innerHTML = cell;
-                    td.style = "max-width: 80px; width: 30%;";
                     tr.appendChild(td);
                 }
                 counter = counter + 1;
@@ -657,13 +660,13 @@
                     deckCount.text = Math.round(cell);
                 }
                 else if (rowCount == 1) {
-                    avgDeckSize.text = Math.round(cell,2);
+                    avgDeckSize.text = Math.round(cell);
                 }
                 else if (rowCount == 2) {
-                    maxDeckSize.text = Math.round(cell);
+                    minDeckSize.text = Math.round(cell);
                 }
                 else if (rowCount == 3) {
-                    minDeckSize.text = Math.round(cell);
+                    maxDeckSize.text = Math.round(cell);
                 }
                 else {
                     
@@ -723,7 +726,8 @@
         extraTab.classList.add("deckTabs");
         sideTab.classList.remove("deckTabsActive");
         sideTab.classList.add("deckTabs");
-
+        infoTab.classList.remove("deckTabsActive");
+        infoTab.classList.add("deckTabs");
         popTab.classList.remove("deckTabsActive");
         popTab.classList.add("deckTabs");
 
@@ -731,7 +735,7 @@
 
         extraContainer.style.display = "none";
         sideContainer.style.display = "none";
-        infoContainer.style.display = "flex";
+        infoContainer.style.display = "none";
         popContainer.style.display = "none";
         mainContainer.style.display = "flex";
             

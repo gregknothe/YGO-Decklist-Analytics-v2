@@ -157,6 +157,7 @@ def updateCardList(newURLListFile, cardListFile):
     return
 
 def deckPartitioner():
+    #Splits the raw data into archetypes
     x = pd.read_csv("cardListFile.csv", delimiter="|")
     x["date"] = pd.to_datetime(x["date"])
     mainArchetypeList = list(set(x["tag1"].to_list()+x['tag2'].to_list()+x["tag3"].to_list()))
@@ -179,9 +180,10 @@ def deckPartitioner():
                     df.to_csv("dataframes/"+archetypeName+" (sub)/"+formats+"_"+str(timeFrame).split(",")[0]+"_"+deckType+".csv", sep="|", index=False)
     return
 
+
 def codeCorrector(df):
+    #Cleans code data so cards are easily identifable at later steps
     nameList = list(set(df["name"].to_list()))
-    #print(nameList)
     for name in nameList:
         if name == "":
             continue
@@ -196,7 +198,9 @@ def codeCorrector(df):
                 df.at[index, "imgSource"] = imgSource
     return df
 
+
 def cardTypeAssigner(cardType):
+    #simplifying card type, removing unnneeded categories 
     if "Monster" in cardType:
         return "Monster"
     elif "Spell" in cardType:
@@ -206,16 +210,11 @@ def cardTypeAssigner(cardType):
     else:
         return "Z"
 
+
 def deckAnalysis(df):
+    #Generates in archetype data
     df = df.fillna("")
     cardIDList = list(set(df["code"].to_list()))
-    #cardNameList = list(set(df["name"].to_list()))
-    '''
-    if len(cardIDList) != len(cardNameList):
-        df = codeCorrector(df)
-        cardIDList = list(set(df["code"].to_list()))
-        #print(x[x["name"]=="Ash Blossom & Joyous Spring"])
-    '''
     df = codeCorrector(df)
     cardIDList = list(set(df["code"].to_list()))
     totalDeckCount = len(list(set(df["deckID"].to_list())))
@@ -235,7 +234,9 @@ def deckAnalysis(df):
     df = df.drop("cardType", axis=1)
     return df
 
+
 def createArchetypeTables():
+    #Creates archetype data tables
     archetypes = os.listdir("E:\Various Programs\Coding Projects\YGO Decklist Analytics v2\dataframes")
     archetypes = [x for x in archetypes if x != 'nan']
     archetypes = [x for x in archetypes if "(sub)" not in x]
@@ -280,7 +281,6 @@ def createArchetypeTables():
                 count1 = dfsub["tag1"].value_counts()
                 count1 = count1.sort_values(ascending=False)
                 count1 = count1.reset_index()
-                #count1["count"] = count1["count"].apply(lambda x: int(x))
                 count1.to_csv("tables/" + archetype + "_data/main_archetypes_" + dateRange + ".csv", sep="|", index=False, header=False)
 
                 #Main Size Count
@@ -294,33 +294,6 @@ def createArchetypeTables():
                     size = [[len(idCount)], [avgSize], [maxSize], [minSize]]
                 sizeDF = pd.DataFrame(size)
                 sizeDF.to_csv("tables/" + archetype + "_data/deck_size_" + dateRange + ".csv", sep="|", index=False, header=False)
-
-
-        """
-        if "(sub)" in archetype:
-            for dateRange in dateRanges:
-                df = pd.read_csv("dataframes/" + archetype + "/" + dateRange + ".csv", sep="|")
-                count1 = df["tag1"].value_counts()
-                count1 = count1.sort_values(ascending=False)
-                count1 = count1.reset_index()
-                count1["count"] = count1["count"].apply(lambda x: int(x))
-                #Get count of all tags that arnt "archetype"
-                count1.to_csv("tables/" + archetype + "/" + dateRange + ".csv", sep="|", index=False)
-        else:
-            for dateRange in dateRanges:
-                df = pd.read_csv("dataframes/" + archetype + "/" + dateRange + ".csv", sep="|")
-                archetypeTable = deckAnalysis(df)
-                os.makedirs("tables/"+archetype, exist_ok=True)
-                archetypeTable['count'] = pd.Series([f"{count:.2f}" for count in archetypeTable['count']], index = archetypeTable.index)
-                archetypeTable["% of decks"] = pd.Series(["{0:.2f}%".format(perc * 100) for perc in archetypeTable["% of decks"]], index = archetypeTable.index)
-                if archetypeTable.empty:
-                    emptyRow = ["https://github.com/gregknothe/YGO-Decklist-Analytics-v2/NoAvailableData.jpeg", "No Data", "N/A", "N/A"]
-                    archetypeTable = pd.concat([archetypeTable,pd.DataFrame(columns=archetypeTable.columns, data=[emptyRow])])
-                archetypeTable.to_csv("tables/" + archetype + "/" + dateRange + ".csv", sep="|", index=False)
-                #Split this up into this chunk and the otehr one taht will get all of the "more info" tab, 
-                #maybe just go tyhrough archetypes instead of spliting based on "sub". 
-                #Consider making small functions to increase readability cuz it will get confusing.
-        """
     return
 
 def updateBlankNames():
@@ -344,6 +317,7 @@ def updateBlankNames():
 #--------------------------Popular Table Generation-------------------------------
 
 def popularTableGeneration():
+    #Generates popular tables
     df = pd.read_csv("cardListFile.csv", delimiter="|")
     df["date"] = pd.to_datetime(df["date"])
     today = datetime.datetime.today()
@@ -356,8 +330,6 @@ def popularTableGeneration():
     mainCards = mainDF.drop_duplicates(subset="code", keep="first").reset_index(drop=True)
     sideCards = sideDF.drop_duplicates(subset="code", keep="first").reset_index(drop=True)
     extraCards = extraDF.drop_duplicates(subset="code", keep="first").reset_index(drop=True)
-
-    #print(mainDF[mainDF["format"]=="OCG"])
 
     for formats in ["TCG", "OCG"]:
         #Getting Tags for "Top Archetypes" and "Top Sub Archetypes" list
@@ -400,9 +372,9 @@ def popularTableGeneration():
         
     return
 
-#popularTableGeneration()
 
 def popArchCalc(formats, startDate, endDate):
+    #Generates popular archetype tables
     df = pd.read_csv("cardListFile.csv", delimiter="|")
     df["date"] = pd.to_datetime(df["date"])
     today = datetime.datetime.today()
@@ -428,8 +400,6 @@ def popArchCalc(formats, startDate, endDate):
 
     return
 
-#popArchCalc("TCG", 0, 31)
-#popArchCalc("OCG", 0, 31)
 
 def popCalc(formats, deck, startDate, endDate):
     df = pd.read_csv("cardListFile.csv", delimiter="|")
@@ -455,7 +425,6 @@ def popCalc(formats, deck, startDate, endDate):
     df = pd.merge(df, pic, on="name", how="left")
     return df
 
-#print(popCalc("TCG", "main_deck", 0, 31))
 
 def popTable():
     for f in ["TCG", "OCG"]:
@@ -470,9 +439,7 @@ def popTable():
         popArchCalc(f, 0, 31)
     return
 
-#popTable()
-
-#--------------------------Clean Set Up---------------------------------            446394
+#--------------------------Clean Set Up---------------------------------            
 #createURL() #4:35 
 #createCardList("urlList.csv", "cardListFile.csv") #1:30:23
 #deckPartitioner() #17:45
@@ -487,16 +454,7 @@ def popTable():
 #createArchetypeTables()
 
 #popTable()
-
-
-#x = pd.read_csv("E:\Various Programs\Coding Projects\YGO Decklist Analytics\dataframes\SnakeEye\TCG_93 days_extra_deck.csv", sep="|")
-#y = codeCorrector(x.fillna(""))
-#y.to_csv("testtesttest.csv", sep='|')
-
-
-#make it look better
-#function to add in name of missing name cards based on ID if they are added later (main data set)
-
+#-------------------------------------------------------------------------
 
 def updateData():
     currTime = datetime.datetime.now()
@@ -515,5 +473,4 @@ def updateData():
     print(datetime.datetime.now() - currTime)
     return
 
-
-updateData()
+#updateData()

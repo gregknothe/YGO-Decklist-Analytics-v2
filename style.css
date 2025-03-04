@@ -1,29 +1,22 @@
+
+
 html {
-    background-color: rgb(19, 19, 19);
+    background-color: rgba(19, 19, 19);
     color: white;
     overflow-y:scroll;
-    scrollbar-color: rgb(36, 36, 36) rgb(7, 7, 7);
+    scrollbar-color: rgba(36, 36, 36) rgba(7, 7, 7);
 }
 
 h1 {
     font-family: 'Courier New', Courier, monospace;
-    color: rgb(255, 255, 255);
-    text-shadow: 1px 1px 1px rgb(202, 0, 34);
+    color: rgba(255, 255, 255);
+    text-shadow: 1px 1px 1px rgba(202, 0, 34);
 }
 
 h2 {
     font-size: 12px;
 }
 
-#top {
-    padding-top: 20px;
-}
-
-#logo {
-    width: 200px;
-    padding-top: 15;
-
-}
 
 body {
     display: flex;
@@ -32,14 +25,7 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-button {
-    background-color: rgb(76, 77, 77);
-    border: solid 1px rgb(141, 140, 140);
-    color: white;
-    margin-top: -9px;
-    width: 310px;
-    margin-left: 1px;
-}
+
 /*-----------Nav Bar-------------*/
 header {
     /*background-color: green;*/
@@ -50,7 +36,6 @@ header {
     height: 20px;
     width: 100%;
     text-align: right;
-
 }
 
 header a{
@@ -65,7 +50,7 @@ header a{
 }
 
 .dropdownMenu {
-    background-color: rgba(0,0,0,0);
+    background-color: rgbaa(0,0,0,0);
     border: none;
     width: 40px;
 }
@@ -79,16 +64,16 @@ header a{
 }
 
 .dropdownContent a {
-    color: rgb(255, 255, 255);
+    color: rgba(255, 255, 255);
     padding: 12 16;
     text-decoration: none;
     display: block;
     font-size: 12px;
-    background-color: rgb(32, 32, 32);
+    background-color: rgba(32, 32, 32);
 }
 
 .dropdownContent a:hover {
-    background-color: rgb(76, 77, 77);
+    background-color: rgba(76, 77, 77);
 }
 
 .dropdown:hover .dropdownContent {
@@ -96,31 +81,23 @@ header a{
 }
 
 .dropdown:hover .dropdownMenu {
-    background-color: rgb(32, 32, 32);
+    background-color: rgba(32, 32, 32);
 }
 
 /*---------------------Containers-----------------------*/
-#inputContainer {
-    /*background-color: rgb(32, 32, 32);*/
-    width: 306px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 10px;
-    padding: 3px;
-}
-
 #deckContainer {
-    /*background-color: rgba(255, 0, 0, 0.247);*/
-    width: 800;
+    /*background-color: rgbaa(255, 0, 0, 0.247);*/
+    max-width: 800;
+    width: 95%;
     display: flex;
     align-items: center;
     justify-content: left;
 }
 
 #cardContainer {
-    background-color: rgb(32, 32, 32);
-    width: 800px;
+    background-color: rgba(32, 32, 32);
+    max-width: 800px;
+    width: 95%;
     padding-top: 5px;
     /*display: flex;
     align-items: center;
@@ -128,15 +105,48 @@ header a{
     flex-wrap: wrap;*/
 }
 
-/*---------------------inputs-----------------------*/
+/*---------------------Top Section-----------------------*/
+#top {
+    display: flex;
+    max-width: 800px;
+    width: 100%;
+    padding-top: 20px;
+}
+
+#topRight {
+    width: 80%;
+    padding-left: 150px;
+}
+
+#topLeft {
+    width: 10%;
+}
+
+#logo {
+    width: 190px;
+    padding-right: 10px;
+    min-width: 100px;
+    padding-top: 15;
+}
+
+#inputContainer {
+    max-width: 306px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    padding: 3px;
+}
+
 .inputSelect {
-    background-color: rgb(76, 77, 77);
+    background-color: rgba(76, 77, 77);
     color: white;
     width: 80px;
 }
 
 #archetypeSelect {
-    width: 130px;
+    width: 100%;
+    max-width: 130px;
 }
 
 #archetypeContainer, #formatContainer {
@@ -154,53 +164,78 @@ header a{
     font-size: 15;
 }
 
+button {
+    background-color: rgba(76, 77, 77);
+    border: solid 1px rgba(141, 140, 140);
+    color: white;
+    margin-top: -9px;
+    max-width: 310px;
+    width: 100%;
+    margin-left: 1px;
+}
+
+
+
+#siteData {
+    /*background-color: rgba(76, 77, 77);*/
+    /*background-color: rgba(51, 51, 51);;*/
+    /*border: solid 1px rgba(141, 140, 140);*/
+    /*border: solid 1px rgba(17, 17, 17);*/
+    font-size: 12px;
+    width: 190px;
+    height: 28px;
+    margin-top: 30px;
+}
+
 /*---------------------decks-----------------------*/
 .deckTabs {
-    background-color: rgb(76, 77, 77);
+    background-color: rgba(76, 77, 77);
     color: white;
-    border: 1px rgb(76, 77, 77);
+    border: 1px rgba(76, 77, 77);
     margin-right: 4px;
     width: 83px;
     height: 20px;
-
+    font-size: 12;
 }
 
 .deckTabsActive {
-    background-color: rgb(32, 32, 32);
-    border: 1px solid rgb(32, 32, 32);
+    background-color: rgba(32, 32, 32);
+    border: 1px solid rgba(32, 32, 32);
     border-bottom: 0px;
     color: white;
     margin-right: 4px;
     width: 83px;
     height: 20px;
-
+    font-size: 12;
 }
 
 /*---------------------cards-----------------------*/
-
 #mainContainer {
-    width: 800px;
+    max-width: 800px;
+    width: 100%;
     display: none;
     flex-wrap: wrap;
     justify-content: center;
 }
 
 #extraContainer {
-    width: 800px;
+    max-width: 800px;
+    width: 100%;
     display: none;
     flex-wrap: wrap;
     justify-content: center;
 }
 
 #sideContainer {
-    width: 800px;
+    max-width: 800px;
+    width: 100%;
     display: none;
     flex-wrap: wrap;
     justify-content: center;
 }
 
 #infoContainer {
-    background-color: rgb(32, 32, 32);
+    background-color: rgba(32, 32, 32);
     display: none;
 }
 
@@ -210,7 +245,7 @@ header a{
 }
 
 .cell {
-    /*background-color:rgb(82, 82, 82);*/
+    /*background-color:rgba(82, 82, 82);*/
     width: 100px;
     display: flex;
     flex-direction: column;
@@ -221,7 +256,7 @@ header a{
     margin-left: 6px;
     margin-bottom: 4px;
     margin-top: 4px;
-    box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.664);
+    box-shadow: 2px 2px 1px rgbaa(0, 0, 0, 0.664);
 }
 
 .cardImg {
@@ -260,7 +295,7 @@ header a{
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgbaa(0, 0, 0, 0.7);
     display: none;
     justify-content: center;
     align-items: center;
@@ -301,7 +336,7 @@ header a{
 }
 
 #deckInfo {
-    width: 1000%;
+    width: 100%;
     text-align: right;
     margin-right: 10%;
 }
@@ -313,7 +348,7 @@ header a{
 }
 
 .infoBox {
-    background-color: rgb(17, 17, 17);
+    background-color: rgba(17, 17, 17);
     width: 95%;
     height: 52px;
     display: flex;
@@ -334,7 +369,7 @@ header a{
 }
 
 .archName {
-    background-color: rgb(34, 34, 34);
+    background-color: rgba(34, 34, 34);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -367,54 +402,60 @@ header a{
 #popTable {
     /*background-color: green;*/
     display: flex;
-    width: 800px;
+    width: 100%;
 }
 
 #popTableTCG, #popTableOCG {
     /*background-color: red;*/
-    width: 400px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 
 .popArch {
     display: flex;
     /*background-color: yellow;*/
-    height: 220px;
+    padding-bottom: 20px;
+    width: 100%;
+    max-width: 400px;
     justify-content: center;
 }
 
 .popMainArch, .popSubArch, .popMainCards, .popSubCards {
-    /*background-color: rgb(65, 65, 65);*/
+    /*background-color: red;*/
     text-align: center;
-    width: 170px;
+    width: 100%;
     margin-right: 10px;
     margin-left: 10px;
+    font-size: 14px;
 }
 
 
-.popCards {
-    display: flex;
-    /*background-color: green;*/
-    height: 500px;
-    justify-content: center;
-    margin-top: 10px;
+.popMainArchOCGTable, .popMainArchTCGTable, .popSubArchOCGTable, .popSubArchTCGTable {
+    width: 100%;
+
 }
 
-table {
-    width: 170px;
-}
+.popMainCardsOCGTable, .popSubExtraCardsOCGTable, .popSubSideCardsOCGTable, .popMainCardsTCGTable, .popSubExtraCardsTCGTable, .popSubSideCardsTCGTable {
+    width: 340px;
+    
+} 
 
 td {
-    background-color: rgb(51, 51, 51);
+    background-color: rgba(51, 51, 51);
     font-size: 12;
     text-align: center;
 }
 
+/* 556 */
+
 .popScrollTable {
-    background-color: rgb(17, 17, 17);
-    width: 350px;
+    background-color: rgba(17, 17, 17);
+    max-width: 350px;
+    width: 100%;
     height: 300px;
     display: flex;
     font-family: Arial, Helvetica, sans-serif;
@@ -426,7 +467,8 @@ td {
 }
 
 .popTableImg {
-    width: 25px;
+    max-width: 25px;
+    width: 100%;
 }
 
 .popTableGreen {
@@ -438,30 +480,10 @@ td {
 }
 
 .popArchBackgrounds {
-    background-color: rgb(17, 17, 17);
+    background-color: rgba(17, 17, 17);
 }
 
-#top {
-    display: flex;
-    width: 800px;
+table {
+    width: 100%;
 }
 
-#topRight {
-    width: 80%;
-    padding-left: 150px
-}
-
-#topLeft {
-    width: 10%;
-}
-
-#siteData {
-    /*background-color: rgb(76, 77, 77);*/
-    /*background-color: rgb(51, 51, 51);;*/
-    /*border: solid 1px rgb(141, 140, 140);*/
-    /*border: solid 1px rgb(17, 17, 17);*/
-    font-size: 12px;
-    width: 190px;
-    height: 28px;
-    margin-top: 30px;
-}
