@@ -473,4 +473,4 @@ def updateData():
     print(datetime.datetime.now() - currTime)
     return
 
-#updateData()
+updateData()
